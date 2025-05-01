@@ -14,7 +14,7 @@ export default function PropertySearch() {
     }, 5000)
 
     return () => clearInterval(interval)
-  }, [])
+  }, [placeholders.length])
   return (
     <div className='md:px-8 md:py-4 p-4 rounded-xl shadow-2xl bg-black/7 max-w-3xl mx-auto'>
       <div className='flex flex-col sm:flex-row items-center sm:gap-4 gap-6'>
