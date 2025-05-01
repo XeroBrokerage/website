@@ -17,7 +17,7 @@ const testimonials = [
     role: 'Tenant',
     image: '/nitin.svg',
     quote:
-      'Brilliant concept of connecting Owners & Tenants directly. I greatly appreciate the entire Nobroker team for the innovative idea. I would like to see this company grow into various ventures & make the entire system a broker free community.',
+      'Brilliant concept of connecting Owners & Tenants directly. I greatly appreciate the entire XeroBroker team for the innovative idea. I would like to see this company grow into various ventures & make the entire system a broker free community.',
     rating: 5,
   },
   {
@@ -35,7 +35,7 @@ const testimonials = [
     role: 'Tenant',
     image: '/neha.svg',
     quote:
-      "Unique concept excellent service. Nobroker helped me get a tenant in less than 24hours. If that's not fast I don't know what is. The platform is incredibly user-friendly and saved me so much time compared to traditional methods.",
+      "Unique concept excellent service. XeroBroker helped me get a tenant in less than 24hours. If that's not fast I don't know what is. The platform is incredibly user-friendly and saved me so much time compared to traditional methods.",
     rating: 5,
   },
   {
@@ -53,7 +53,7 @@ const testimonials = [
     role: 'Owner',
     image: '/arjun.svg',
     quote:
-      "I'm happy as the XeroBroker team took the initiative to post my property on there website. All I had to do was provide the information over the phone & send the photos through WhatsApp. I'm extremely happy as my property was rented out faster than I expected without me having to pay any brokerage whatsoever. Thanks to XeroBroker team",
+      "I'm happy as the XeroBroker team took the initiative to post my property on their website. All I had to do was provide the information over the phone & send the photos through WhatsApp. I'm extremely happy as my property was rented out faster than I expected without me having to pay any brokerage whatsoever. Thanks to XeroBroker team",
     rating: 4,
   },
 ]
