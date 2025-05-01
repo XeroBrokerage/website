@@ -4,6 +4,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { useAuth } from '@/context/AuthContext'
 import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
+const DEFAULT_PROFILE_IMAGE = '/def_profile.png'
 import { Loader2, Edit, Camera, Lock, Mail, User } from 'lucide-react'
 
 const UserProfile = () => {
@@ -16,21 +17,69 @@ const UserProfile = () => {
     newPassword: '',
     confirmPassword: '',
   })
+
+  const [passwordErrors, setPasswordErrors] = useState({
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: '',
+  })
+
+  const validatePasswordChange = () => {
+    const errors = {
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+    }
+    let isValid = true
+
+    // Validate current password (mock validation - replace with actual API call)
+    if (!passwordForm.currentPassword) {
+      errors.currentPassword = 'Current password is required'
+      isValid = false
+    } else if (passwordForm.currentPassword.length === 0) {
+      errors.currentPassword = 'Password Invalid'
+      isValid = false
+    }
+
+    // Validate new password
+    if (!passwordForm.newPassword) {
+      errors.newPassword = 'New password is required'
+      isValid = false
+    } else if (passwordForm.newPassword.length < 8) {
+      errors.newPassword = 'Password must be at least 8 characters'
+      isValid = false
+    } else if (!/[A-Z]/.test(passwordForm.newPassword)) {
+      errors.newPassword = 'Password must contain at least one uppercase letter'
+      isValid = false
+    } else if (!/[0-9]/.test(passwordForm.newPassword)) {
+      errors.newPassword = 'Password must contain at least one number'
+      isValid = false
+    }
+
+    // Validate confirm password
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      errors.confirmPassword = 'Passwords do not match'
+      isValid = false
+    }
+
+    setPasswordErrors(errors)
+    return isValid
+  }
+
   const [showPasswordForm, setShowPasswordForm] = useState(false)
   const [profileData, setProfileData] = useState({
     name: '',
     phone: '',
-    profilePic: '/default-profile.jpg',
+    profilePic: '/def_profile.jpg',
   })
-  const fileInputRef = useRef(null)
 
-  // Initialize profile data when user loads
+  const fileInputRef = useRef(null)
   useEffect(() => {
     if (user) {
       setProfileData({
         name: user.name || '',
         phone: user.phone || '',
-        profilePic: user.profilePic || '/default-profile.jpg',
+        profilePic: user.profilePic || '/def_profile.png',
       })
     }
   }, [user])
@@ -104,24 +153,43 @@ const UserProfile = () => {
   const submitPasswordChange = async e => {
     e.preventDefault()
     setLoading(true)
+
+    if (!validatePasswordChange()) {
+      setLoading(false)
+      return
+    }
+
     try {
-      // Add password change API call here
-      // await changePassword(passwordForm);
+      // Replace with actual API call to verify current password and update
+      // const response = await changePasswordAPI({
+      //   currentPassword: passwordForm.currentPassword,
+      //   newPassword: passwordForm.newPassword
+      // });
+
+      // Mock success response
       toast.success('Password changed successfully!', {
         theme: 'dark',
         position: 'bottom-right',
         autoClose: 3000,
       })
+
       setPasswordForm({
         currentPassword: '',
         newPassword: '',
         confirmPassword: '',
       })
+      setShowPasswordForm(false)
     } catch (error) {
-      toast.error('Password change failed')
+      if (error.response?.data?.error === 'Invalid current password') {
+        setPasswordErrors(prev => ({
+          ...prev,
+          currentPassword: 'Current password is incorrect',
+        }))
+      } else {
+        toast.error('Password change failed. Please try again.')
+      }
     } finally {
       setLoading(false)
-      setShowPasswordForm(false)
     }
   }
 
@@ -159,12 +227,12 @@ const UserProfile = () => {
           <div className='bg-blue-400 px-6 py-8 text-center rounded-t-lg'>
             <div className='relative mx-auto w-32 h-32 rounded-full overflow-hidden border-4 border-white shadow-lg mb-4'>
               <img
-                src={profileData.profilePic}
+                src={profileData.profilePic || DEFAULT_PROFILE_IMAGE}
                 alt='Profile'
                 className='w-full h-full object-cover'
                 onError={e => {
                   e.target.onerror = null
-                  e.target.src = '/default-profile.jpg'
+                  e.target.src = DEFAULT_PROFILE_IMAGE
                 }}
               />
               <input
@@ -358,11 +426,19 @@ const UserProfile = () => {
                       name='currentPassword'
                       value={passwordForm.currentPassword}
                       onChange={handlePasswordChange}
-                      className='w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500'
+                      className={`w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
+                        passwordErrors.currentPassword ? 'border-red-500' : ''
+                      }`}
                       required
                       disabled={loading}
                     />
+                    {passwordErrors.currentPassword && (
+                      <p className='text-red-500 text-xs mt-1'>
+                        {passwordErrors.currentPassword}
+                      </p>
+                    )}
                   </div>
+
                   <div>
                     <label className='block text-sm font-medium text-gray-700 mb-1'>
                       New Password
@@ -372,11 +448,23 @@ const UserProfile = () => {
                       name='newPassword'
                       value={passwordForm.newPassword}
                       onChange={handlePasswordChange}
-                      className='w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500'
+                      className={`w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
+                        passwordErrors.newPassword ? 'border-red-500' : ''
+                      }`}
                       required
                       disabled={loading}
                     />
+                    {passwordErrors.newPassword && (
+                      <p className='text-red-500 text-xs mt-1'>
+                        {passwordErrors.newPassword}
+                      </p>
+                    )}
+                    <p className='text-xs text-gray-500 mt-1'>
+                      Must be at least 8 characters with 1 uppercase letter and
+                      1 number
+                    </p>
                   </div>
+
                   <div>
                     <label className='block text-sm font-medium text-gray-700 mb-1'>
                       Confirm New Password
@@ -386,11 +474,19 @@ const UserProfile = () => {
                       name='confirmPassword'
                       value={passwordForm.confirmPassword}
                       onChange={handlePasswordChange}
-                      className='w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500'
+                      className={`w-full px-4 py-2 border rounded-md focus:ring-blue-500 focus:border-blue-500 ${
+                        passwordErrors.confirmPassword ? 'border-red-500' : ''
+                      }`}
                       required
                       disabled={loading}
                     />
+                    {passwordErrors.confirmPassword && (
+                      <p className='text-red-500 text-xs mt-1'>
+                        {passwordErrors.confirmPassword}
+                      </p>
+                    )}
                   </div>
+
                   <div className='flex space-x-3 pt-2'>
                     <button
                       type='submit'
@@ -404,7 +500,14 @@ const UserProfile = () => {
                     </button>
                     <button
                       type='button'
-                      onClick={() => setShowPasswordForm(false)}
+                      onClick={() => {
+                        setShowPasswordForm(false)
+                        setPasswordErrors({
+                          currentPassword: '',
+                          newPassword: '',
+                          confirmPassword: '',
+                        })
+                      }}
                       className='px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300'
                       disabled={loading}
                     >
