@@ -27,25 +27,24 @@ export default function Navbar() {
   }, [menuOpen]);
 
   return (
-    <nav className="header fixed min-w-screen min-h-20 lg:min-h-20 bg-[#ffdf4d] flex justify-between items-center lg:px-6 px-4 z-50">
+    <nav className="header fixed min-w-screen min-h-15 sm:min-h-20 bg-[#ffdf4d] flex justify-between items-center lg:px-6 px-4 z-50 border-b-[1px] border-b-gray-600">
       <Link href="/" className="playfair-display text-3xl">
-        <div className="flex items-center justify-center">
+        <div className="flex flex-row items-center justify-center ">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="50px"
               viewBox="0 -960 960 960"
-              width="50px"
               fill="#000000"
+              className="sm:w-[50px] sm:h-[50px] w-[30px] h-[30px]"
             >
               <path d="M370-440h60v-120h100v120h60v-185l-110-73-110 73v185Zm110 281q133-121 196.5-219.5T740-552q0-118-75.5-193T480-820q-109 0-184.5 75T220-552q0 75 65 173.5T480-159Zm0 79Q319-217 239.5-334.5T160-552q0-150 96.5-239T480-880q127 0 223.5 89T800-552q0 100-79.5 217.5T480-80Zm0-480Z" />
             </svg>
           </span>
-          <div className="flex flex-col ">
-            <span className="text-3xl poppins-bold tracking-widest -mb-2">
+          <div className="flex flex-col justify-center">
+            <span className="text-xl sm:text-3xl poppins-bold tracking-widest -mb-2">
               xero
             </span>
-            <span className="text-lg poppins-regular tracking-widest">
+            <span className="text-[10px] sm:text-lg poppins-regular tracking-widest">
               BROKERAGE
             </span>
           </div>
@@ -58,10 +57,9 @@ export default function Navbar() {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          height="35px"
           viewBox="0 -960 960 960"
-          width="48px"
           fill="#000000"
+          className="w-[30px] h-[30px]"
         >
           <path d="M99-205v-92h763v92H99Zm0-229v-91h763v91H99Zm0-229v-92h763v92H99Z" />
         </svg>
@@ -109,7 +107,7 @@ export default function Navbar() {
   );
 }
 
-function NavLinks({  onClick, isMobile = false  }) {
+function NavLinks({ onClick, isMobile = false }) {
   const { user, isAuthenticated } = useAuth();
 
   return (
@@ -124,7 +122,7 @@ function NavLinks({  onClick, isMobile = false  }) {
           height="30px"
           viewBox="0 -960 960 960"
           width="30px"
-          fill= {isMobile? "#ffffff": "#000000"}
+          fill={isMobile ? "#ffffff" : "#000000"}
         >
           <path d="M490.67-472.67v-334q0-14.16 9.58-23.75Q509.83-840 524-840h282.67q14.16 0 23.75 9.58 9.58 9.59 9.58 23.75V-612q0 14.17-9.58 23.75-9.59 9.58-23.75 9.58H600l-109.33 106Zm66.66-172.66h216v-128h-216v128Zm0 0v-128 128ZM796-120q-119 0-240-55.5T333-333Q231-435 175.5-556T120-796q0-18.86 12.57-31.43T164-840h147.33q14 0 24.34 9.83Q346-820.33 349.33-806l26.62 130.43q2.05 14.9-.62 26.24-2.66 11.33-10.82 19.48L265.67-530q24 41.67 52.5 78.5T381-381.33q35 35.66 73.67 65.5Q493.33-286 536-262.67l94.67-96.66q9.66-10.34 23.26-14.5 13.61-4.17 26.74-2.17L806-349.33q14.67 4 24.33 15.53Q840-322.27 840-308v144q0 18.86-12.57 31.43T796-120ZM233-592l76-76.67-21-104.66H187q3 41.66 13.67 86Q211.33-643 233-592Zm365.33 361.33q40.34 18.34 85.84 29.67 45.5 11.33 89.16 13.67V-288l-100-20.33-75 77.66ZM233-592Zm365.33 361.33Z" />
         </svg>

@@ -13,11 +13,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en'>
       <body className='bg-[#faf7e7] '>
-        {' '}
         {/* bg-[#faf7e7]  */}
         <AuthProvider>
           <Navbar />
-          <main className='max-h-[90vh] max-w-screen relative top-[79px]'>
+          <main className='max-h-[90vh] max-w-screen relative sm:top-[79px] top-15'>
             {children}
           </main>
         </AuthProvider>
