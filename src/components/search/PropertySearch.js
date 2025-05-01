@@ -26,7 +26,9 @@ export default function PropertySearch() {
 
         <select className='select select-bordered w-full sm:w-auto text-black focus:outline-none rounded-sm text-xl p-4 sm:p-1 border border-black sm:border-0 max-w-md'>
           {' '}
-          <option className='text-xl p-2 poppins-semibold'>Apartment</option>
+          <option className='text-xl p-2 poppins-semibold'>
+            Lands and Plots
+          </option>
           <option className='text-xl p-2 poppins-semibold'>Villa</option>
           <option className='text-xl p-2 poppins-semibold'>Office</option>
           <option className='text-xl p-2 poppins-semibold'>Hostel</option>
