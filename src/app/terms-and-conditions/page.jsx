@@ -41,7 +41,7 @@ export default function TermsAndConditions() {
             <div className='h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center mr-4'>
               <FiShield className='text-blue-600' size={20} />
             </div>
-            <h2 className='text-2xl font-semibold text-gray-800'>
+            <h2 className='text-2xl font-bold text-gray-800'>
               General Terms for All Users
             </h2>
           </div>
@@ -78,15 +78,15 @@ export default function TermsAndConditions() {
             <div className='h-10 w-10 bg-purple-100 rounded-full flex items-center justify-center mr-4'>
               <FiCheckCircle className='text-purple-600' size={20} />
             </div>
-            <h2 className='text-2xl font-semibold text-gray-800'>
+            <h2 className='text-2xl font-bold text-gray-800'>
               For Property Sellers
             </h2>
           </div>
 
           <div className='space-y-8 pl-14'>
             <div>
-              <h3 className='text-xl font-medium text-gray-700 mb-3 flex items-center'>
-                <span className='w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center mr-3 text-sm'>
+              <h3 className='text-xl font-semibold text-gray-700 mb-3 flex items-center'>
+                <span className='w-6 h-6 bg-blue-500 text-white rounded-full font-extrabold flex items-center justify-center mr-3 text-sm'>
                   1
                 </span>
                 Listing Your Property
@@ -109,8 +109,8 @@ export default function TermsAndConditions() {
             </div>
 
             <div>
-              <h3 className='text-xl font-medium text-gray-700 mb-3 flex items-center'>
-                <span className='w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center mr-3 text-sm'>
+              <h3 className='text-xl font-semibold text-gray-700 mb-3 flex items-center'>
+                <span className='w-6 h-6 bg-blue-500 text-white font-extrabold rounded-full flex items-center justify-center mr-3 text-sm'>
                   2
                 </span>
                 Verification Process
@@ -128,8 +128,8 @@ export default function TermsAndConditions() {
             </div>
 
             <div>
-              <h3 className='text-xl font-medium text-gray-700 mb-3 flex items-center'>
-                <span className='w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center mr-3 text-sm'>
+              <h3 className='text-xl font-semibold text-gray-700 mb-3 flex items-center'>
+                <span className='w-6 h-6 bg-blue-500 text-white font-extrabold rounded-full flex items-center justify-center mr-3 text-sm'>
                   3
                 </span>
                 Service Plans
@@ -152,8 +152,8 @@ export default function TermsAndConditions() {
             </div>
 
             <div>
-              <h3 className='text-xl font-medium text-gray-700 mb-3 flex items-center'>
-                <span className='w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center mr-3 text-sm'>
+              <h3 className='text-xl font-semibold text-gray-700 mb-3 flex items-center'>
+                <span className='w-6 h-6 bg-blue-500 font-extrabold text-white rounded-full flex items-center justify-center mr-3 text-sm'>
                   4
                 </span>
                 Your Responsibilities
@@ -185,15 +185,15 @@ export default function TermsAndConditions() {
             <div className='h-10 w-10 bg-green-100 rounded-full flex items-center justify-center mr-4'>
               <FiCheckCircle className='text-green-600' size={20} />
             </div>
-            <h2 className='text-2xl font-semibold text-gray-800'>
+            <h2 className='text-2xl font-bold text-gray-800'>
               For Property Buyers
             </h2>
           </div>
 
           <div className='space-y-8 pl-14'>
             <div>
-              <h3 className='text-xl font-medium text-gray-700 mb-3 flex items-center'>
-                <span className='w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center mr-3 text-sm'>
+              <h3 className='text-xl font-semibold text-gray-700 mb-3 flex items-center'>
+                <span className='w-6 h-6 bg-green-500 text-white font-extrabold rounded-full flex items-center justify-center mr-3 text-sm'>
                   1
                 </span>
                 Property Search & Contact
@@ -214,8 +214,8 @@ export default function TermsAndConditions() {
             </div>
 
             <div>
-              <h3 className='text-xl font-medium text-gray-700 mb-3 flex items-center'>
-                <span className='w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center mr-3 text-sm'>
+              <h3 className='text-xl font-semibold text-gray-700 mb-3 flex items-center'>
+                <span className='w-6 font-extrabold h-6 bg-green-500 text-white rounded-full flex items-center justify-center mr-3 text-sm'>
                   2
                 </span>
                 Information Accuracy
@@ -233,8 +233,8 @@ export default function TermsAndConditions() {
             </div>
 
             <div>
-              <h3 className='text-xl font-medium text-gray-700 mb-3 flex items-center'>
-                <span className='w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center mr-3 text-sm'>
+              <h3 className='text-xl font-semibold text-gray-700 mb-3 flex items-center'>
+                <span className='w-6 font-extrabold h-6 bg-green-500 text-white rounded-full flex items-center justify-center mr-3 text-sm'>
                   3
                 </span>
                 Property Verification
@@ -259,8 +259,8 @@ export default function TermsAndConditions() {
             </div>
 
             <div>
-              <h3 className='text-xl font-medium text-gray-700 mb-3 flex items-center'>
-                <span className='w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center mr-3 text-sm'>
+              <h3 className='text-xl font-semibold text-gray-700 mb-3 flex items-center'>
+                <span className='w-6 font-extrabold h-6 bg-green-500 text-white rounded-full flex items-center justify-center mr-3 text-sm'>
                   4
                 </span>
                 Transaction Process
@@ -290,14 +290,14 @@ export default function TermsAndConditions() {
             <div className='h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center mr-4'>
               <FiAlertCircle className='text-blue-600' size={20} />
             </div>
-            <h2 className='text-2xl font-semibold text-gray-800'>
+            <h2 className='text-2xl font-bold text-gray-800'>
               Common Terms for All Parties
             </h2>
           </div>
 
-          <div className='space-y-6 pl-14'>
+          <div className='space-y-6 pl-4 pr-4'>
             <div className='bg-white p-4 rounded-lg'>
-              <h4 className='font-medium text-gray-700 mb-2'>
+              <h4 className='font-semibold text-gray-700 mb-2'>
                 Prohibited Activities
               </h4>
               <p className='text-gray-600'>
@@ -314,7 +314,7 @@ export default function TermsAndConditions() {
             </div>
 
             <div className='bg-white p-4 rounded-lg'>
-              <h4 className='font-medium text-gray-700 mb-2'>
+              <h4 className='font-semibold text-gray-700 mb-2'>
                 Account Termination
               </h4>
               <p className='text-gray-600'>
@@ -330,7 +330,7 @@ export default function TermsAndConditions() {
             </div>
 
             <div className='bg-white p-4 rounded-lg'>
-              <h4 className='font-medium text-gray-700 mb-2'>Liability</h4>
+              <h4 className='font-semibold text-gray-700 mb-2'>Liability</h4>
               <p className='text-gray-600'>
                 We are not liable for any disputes, losses, or damages resulting
                 from transactions conducted through our platform. This includes:
@@ -344,7 +344,7 @@ export default function TermsAndConditions() {
             </div>
 
             <div className='bg-white p-4 rounded-lg'>
-              <h4 className='font-medium text-gray-700 mb-2'>
+              <h4 className='  font-semibold text-gray-700 mb-2'>
                 Dispute Resolution
               </h4>
               <p className='text-gray-600'>
@@ -361,7 +361,7 @@ export default function TermsAndConditions() {
             </div>
 
             <div className='bg-white p-4 rounded-lg'>
-              <h4 className='font-medium text-gray-700 mb-2'>
+              <h4 className='font-semibold text-gray-700 mb-2'>
                 Changes to Terms
               </h4>
               <p className='text-gray-600'>
@@ -381,7 +381,9 @@ export default function TermsAndConditions() {
             </div>
 
             <div className='bg-white p-4 rounded-lg'>
-              <h4 className='font-medium text-gray-700 mb-2'>Privacy Policy</h4>
+              <h4 className='font-semibold text-gray-700 mb-2'>
+                Privacy Policy
+              </h4>
               <p className='text-gray-600'>
                 Your use of our services is also governed by our Privacy Policy,
                 which covers:
@@ -395,7 +397,7 @@ export default function TermsAndConditions() {
             </div>
 
             <div className='bg-white p-4 rounded-lg'>
-              <h4 className='font-medium text-gray-700 mb-2'>
+              <h4 className='font-semibold text-gray-700 mb-2'>
                 Intellectual Property
               </h4>
               <p className='text-gray-600'>
@@ -418,7 +420,7 @@ export default function TermsAndConditions() {
 
         {/* Acceptance Section */}
         <section className='bg-white p-6 rounded-lg shadow-sm text-center'>
-          <h3 className='text-xl font-medium text-gray-700 mb-4'>
+          <h3 className='text-xl font-bold text-gray-700 mb-4'>
             Acceptance of Terms
           </h3>
           <p className='text-gray-600 mb-4'>

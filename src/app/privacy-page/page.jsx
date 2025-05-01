@@ -146,7 +146,7 @@ export default function PrivacyPolicy() {
             </h2>
           </div>
 
-          <div className='grid md:grid-cols-2 gap-6 pl-0'>
+          <div className='grid md:grid-cols-2 gap-6 pl-4 pr-4'>
             <div className='bg-[#FCE277] p-4 rounded-lg'>
               <h4 className='font-semibold text-gray-900 mb-2'>
                 Service Provision
@@ -308,7 +308,7 @@ export default function PrivacyPolicy() {
               <p>Regular employee training on data protection</p>
             </div>
 
-            <div className='bg-blue-500/10 p-4 rounded-lg mt-4'>
+            <div className='bg-blue-500/10 p-4 rounded-lg mt-4 border-l-4 border-blue-400'>
               <p className='text-black'>
                 While we strive to use commercially acceptable means to protect
                 your personal data, we cannot guarantee its absolute security.
@@ -330,7 +330,7 @@ export default function PrivacyPolicy() {
             </h2>
           </div>
 
-          <div className='grid md:grid-cols-2 gap-6 pl-2'>
+          <div className='grid md:grid-cols-2 gap-6 pl-4 pr-4'>
             <div className='bg-[#FCE277] p-4 rounded-lg'>
               <h4 className='font-semibold text-gray-900 mb-2'>
                 Access & Correction
@@ -374,7 +374,7 @@ export default function PrivacyPolicy() {
             </div>
           </div>
 
-          <div className='mt-6 pl-2'>
+          <div className='mt-6 pl-4 pr-4'>
             <p className='text-gray-900'>
               To exercise any of these rights, please contact us at
               <b> xerobrokerage@gmail.com</b>. We may need to verify your
