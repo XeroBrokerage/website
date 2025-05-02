@@ -1,115 +1,219 @@
 "use client";
-import { CldUploadWidget } from "next-cloudinary";
 
-import { useState, useRef, useEffect } from "react";
-import {
-  FiUploadCloud,
-  FiCalendar,
-  FiHome,
-  FiLayers,
-  FiCheckCircle,
-} from "react-icons/fi";
+import React, { useState, useRef, useEffect } from "react";
+import UploadCommercial from "../../components/upload-property/uploadCommercial";
+import UploadResidence from "../../components/upload-property/uploadResidence";
+import UploadLand from "../../components/upload-property/uploadLand";
 
-export default function Upload() {
+const Page = () => {
+  const propertyOptions = ["Residential", "Commercial", "Plot/Land"];
+  const listingOptions = ["Sell", "Rent"];
+
+  const [propertyType, setPropertyType] = useState("Residential");
+  const [listingType, setListingType] = useState("Sell");
+
+  const canRent = propertyType !== "Plot/Land";
+
+  // Refs and state for sliding indicator positions
+  const propertyRef = useRef(null);
+  const listingRef = useRef(null);
+
+  const [propertyIndicatorStyle, setPropertyIndicatorStyle] = useState({});
+  const [listingIndicatorStyle, setListingIndicatorStyle] = useState({});
+
+  // Form data state for all property types
+  const [residenceData, setResidenceData] = useState({
+    title: "",
+    address: "",
+    price: "",
+    area: "",
+    bedrooms: "",
+    bathrooms: "",
+    furnishing: "",
+    possessionDate: "",
+    description: "",
+    amenities: [],
+    images: "",
+  });
+
+  const [commercialData, setCommercialData] = useState({
+    title: "",
+    address: "",
+    price: "",
+    area: "",
+    floors: "",
+    parking: "",
+    possessionDate: "",
+    maintenance: "",
+    description: "",
+    amenities: [],
+    images: "",
+  });
+
+  const [landData, setLandData] = useState({
+    title: "",
+    address: "",
+    price: "",
+    pricePerAcre: "",
+    totalAcres: "",
+    landType: "",
+    possessionDate: "",
+    description: "",
+    amenities: [],
+    images: "",
+  });
+
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [uploadedUrl, setUploadedUrl] = useState("");
-  const [preview, setPreview] = useState("");
-  const [errors, setErrors] = useState({
-    beds: "",
-    baths: "",
-    price: "",
-    size: "",
-    maintainence: "",
-  });
-  const [selectedAmenities, setSelectedAmenities] = useState([]);
-  const [possessionDate, setPossessionDate] = useState("");
-  const [bhkConfig, setBhkConfig] = useState("");
-  const [furnishingStatus, setFurnishingStatus] = useState("");
-  const [propertyType, setPropertyType] = useState("");
-  const [flooringType, setFlooringType] = useState("");
-  const [description, setDescription] = useState("");
-  const textareaRef = useRef(null);
 
-  const amenitiesList = [
-    "Children's Play Area",
-    "Lift Facility",
-    "Gym",
-    "Clubhouse",
-    "Swimming Pool",
-    "Park",
-    "Security",
-    "Power Backup",
-    "Utility Shops",
-    "24*7 CCTV Surveillance",
-    "Intercom",
-    "Green Space",
-    "Fire Safety",
-    "Shopping Center",
-    "Gas Pipeline",
-    "Maintenance Staff",
-  ];
-  const bhkOptions = ["1 BHK", "2 BHK", "3 BHK", "4 BHK", "5 BHK", "6 BHK+"];
-  const furnishingOptions = [
-    "Unfurnished",
-    "Semi-Furnished",
-    "Fully Furnished",
-  ];
-  const propertyOptions = ["Apartment", "Villa", "Office", "Hostel", "Flat"];
-  const flooringOptions = [
-    "Vitrified Tiles",
-    "Wooden Flooring",
-    "Marble",
-    "Granite",
-    "Cement",
-  ];
-
-  // Validation
-  const validateNumber = (name, value) => {
-    if (value < 0) {
-      setErrors((prev) => ({ ...prev, [name]: "Value cannot be negative" }));
-      return false;
+  // Update sliding indicator position for property type
+  useEffect(() => {
+    if (propertyRef.current) {
+      const buttons = propertyRef.current.querySelectorAll("button");
+      const index = propertyOptions.indexOf(propertyType);
+      if (buttons[index]) {
+        const button = buttons[index];
+        setPropertyIndicatorStyle({
+          width: button.offsetWidth,
+          left: button.offsetLeft,
+        });
+      }
     }
-    setErrors((prev) => ({ ...prev, [name]: "" }));
+  }, [propertyType]);
+
+  // Update sliding indicator position for listing type
+  useEffect(() => {
+    if (listingRef.current) {
+      const buttons = listingRef.current.querySelectorAll("button");
+      const index = listingOptions.indexOf(listingType);
+      if (buttons[index]) {
+        const button = buttons[index];
+        setListingIndicatorStyle({
+          width: button.offsetWidth,
+          left: button.offsetLeft,
+        });
+      }
+    }
+  }, [listingType]);
+
+  // Validation helper function
+  const validateFields = (fields) => {
+    for (const [key, value] of Object.entries(fields)) {
+      if (
+        value === "" ||
+        value === null ||
+        value === undefined ||
+        (Array.isArray(value) && value.length === 0)
+      ) {
+        return false;
+      }
+    }
     return true;
   };
 
-  const handleAmenityChange = (amenity) => {
-    setSelectedAmenities((prev) =>
-      prev.includes(amenity)
-        ? prev.filter((a) => a !== amenity)
-        : [...prev, amenity]
-    );
-  };
-
-  const formatCurrency = (e) => {
-    let value = e.target.value.replace(/\D/g, "");
-    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    e.target.value = value;
-  };
-
-  useEffect(() => {
-    const textarea = textareaRef.current;
-    if (textarea) {
-      textarea.style.height = "auto";
-      textarea.style.height = `${textarea.scrollHeight}px`;
-    }
-  }, [description]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
+  // Unified submit handler with flat object payload and validation
+  const handleSubmit = async () => {
     setMessage("");
 
-    const formData = new FormData(e.target);
+    // Prepare flat payload with all fields, irrelevant fields set to empty or zero
+    let payload = {
+      propertyType,
+      listingType,
+      title: "",
+      address: "",
+      price: "",
+      area: "",
+      bedrooms: 0,
+      bathrooms: 0,
+      furnishing: "",
+      possessionDate: "",
+      description: "",
+      amenities: [],
+      images: "",
+      floors: 0,
+      parking: "",
+      maintenance: "",
+      pricePerAcre: "",
+      totalAcres: "",
+      landType: "",
+    };
 
-    formData.append("amenities", JSON.stringify(selectedAmenities));
-    formData.append("images", uploadedUrl);
+    let currentData = null;
+    let requiredFields = {};
+
+    if (propertyType === "Residential") {
+      currentData = residenceData;
+      requiredFields = {
+        title: residenceData.title,
+        address: residenceData.address,
+        price: residenceData.price,
+        area: residenceData.area,
+        bedrooms: residenceData.bedrooms,
+        bathrooms: residenceData.bathrooms,
+        furnishing: residenceData.furnishing,
+        possessionDate: residenceData.possessionDate,
+        description: residenceData.description,
+        amenities: residenceData.amenities,
+        images: residenceData.images,
+      };
+      payload = {
+        ...payload,
+        ...residenceData,
+      };
+    } else if (propertyType === "Commercial") {
+      currentData = commercialData;
+      requiredFields = {
+        title: commercialData.title,
+        address: commercialData.address,
+        price: commercialData.price,
+        area: commercialData.area,
+        floors: commercialData.floors,
+        parking: commercialData.parking,
+        possessionDate: commercialData.possessionDate,
+        maintenance: commercialData.maintenance,
+        description: commercialData.description,
+        amenities: commercialData.amenities,
+        images: commercialData.images,
+      };
+      payload = {
+        ...payload,
+        ...commercialData,
+      };
+    } else if (propertyType === "Plot/Land") {
+      currentData = landData;
+      requiredFields = {
+        title: landData.title,
+        address: landData.address,
+        price: landData.price,
+        pricePerAcre: landData.pricePerAcre,
+        totalAcres: landData.totalAcres,
+        landType: landData.landType,
+        possessionDate: landData.possessionDate,
+        description: landData.description,
+        amenities: landData.amenities,
+        images: landData.images,
+      };
+      payload = {
+        ...payload,
+        ...landData,
+        area: landData.totalAcres,
+      };
+    }
+
+    if (!validateFields(requiredFields)) {
+      setMessage("❌ Please fill in all required fields before submitting.");
+      return;
+    }
+
+    setLoading(true);
 
     try {
       const res = await fetch("/api/properties", {
         method: "POST",
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
       });
 
       if (!res.ok) throw new Error("Failed to upload property.");
@@ -118,6 +222,45 @@ export default function Upload() {
 
       if (data.success) {
         setMessage("✅ Property uploaded successfully!");
+        // Reset all form data
+        setResidenceData({
+          title: "",
+          address: "",
+          price: "",
+          area: "",
+          bedrooms: "",
+          bathrooms: "",
+          furnishing: "",
+          possessionDate: "",
+          description: "",
+          amenities: [],
+          images: "",
+        });
+        setCommercialData({
+          title: "",
+          address: "",
+          price: "",
+          area: "",
+          floors: "",
+          parking: "",
+          possessionDate: "",
+          maintenance: "",
+          description: "",
+          amenities: [],
+          images: "",
+        });
+        setLandData({
+          title: "",
+          address: "",
+          price: "",
+          pricePerAcre: "",
+          totalAcres: "",
+          landType: "",
+          possessionDate: "",
+          description: "",
+          amenities: [],
+          images: "",
+        });
       } else {
         setMessage(`❌ ${data.error || "Upload failed. Please try again."}`);
       }
@@ -130,454 +273,133 @@ export default function Upload() {
   };
 
   return (
-    <div className="min-h-fit py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-blue-800 mb-2">
-            List Your Property
-          </h1>
-          <p className="text-lg text-blue-600">
-            Fill in the details to showcase your property
-          </p>
-        </div>
+    <div className="flex flex-col items-center min-h-fit py-12 px-4 sm:px-6 lg:px-8 mx-auto max-w-[98vw] bg-gray-50">
+      {/* Header */}
+      <div className="text-center mb-8">
+        <h1 className="text-4xl font-semibold text-gray-900 mb-3">
+          List Your Property
+        </h1>
+        <p className="text-lg text-gray-700 max-w-md mx-auto">
+          Fill in the details to showcase your property
+        </p>
+      </div>
 
-        {/* Form Container */}
-        <form
-          onSubmit={handleSubmit}
-          className="bg-white rounded-2xl shadow-xl overflow-hidden"
+      {/* Property Type Selector */}
+      <span className="block text-lg font-medium text-gray-800 mb-2">
+        Property Type
+      </span>
+      <div
+        ref={propertyRef}
+        className="relative inline-flex bg-white rounded-md shadow-sm overflow-hidden mb-8"
+      >
+        <span
+          className="absolute top-0 bottom-0 bg-indigo-600 rounded-md transition-all duration-300 ease-in-out"
+          style={{
+            width: propertyIndicatorStyle.width,
+            left: propertyIndicatorStyle.left,
+          }}
+        />
+        {propertyOptions.map((label) => (
+          <button
+            key={label}
+            type="button"
+            onClick={() => {
+              setPropertyType(label);
+              if (label === "Plot/Land" && listingType === "Rent") {
+                setListingType("Sell");
+              }
+            }}
+            className={`relative z-10 flex items-center justify-center px-5 py-2 text-base font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
+              propertyType === label
+                ? "text-white"
+                : "text-gray-600 hover:text-gray-900"
+            }`}
+            aria-pressed={propertyType === label}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      <span className="block text-lg font-medium text-gray-800 mb-2">
+        Advertise As
+      </span>
+      <div
+        ref={listingRef}
+        className="relative inline-flex bg-white rounded-md shadow-sm overflow-hidden mb-8"
+      >
+        <span
+          className="absolute top-0 bottom-0 bg-indigo-600 rounded-md transition-all duration-300 ease-in-out"
+          style={{
+            width: listingIndicatorStyle.width,
+            left: listingIndicatorStyle.left,
+          }}
+        />
+        {listingOptions.map((type) => {
+          const isDisabled = type === "Rent" && !canRent;
+
+          return (
+            <button
+              key={type}
+              type="button"
+              onClick={() => !isDisabled && setListingType(type)}
+              className={`relative z-10 px-8 py-2 text-base font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 ${
+                listingType === type && !isDisabled
+                  ? "text-white"
+                  : "text-gray-600 hover:text-gray-900"
+              } ${isDisabled ? "opacity-50 cursor-not-allowed" : ""}`}
+              disabled={isDisabled}
+              title={isDisabled ? "Rent not available for Plot/Land" : ""}
+              aria-pressed={listingType === type}
+            >
+              {type}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Conditionally render the upload components based on propertyType */}
+      <div className="w-full max-w-4xl">
+        {propertyType === "Residential" && (
+          <UploadResidence
+            formData={residenceData}
+            setFormData={setResidenceData}
+          />
+        )}
+        {propertyType === "Commercial" && (
+          <UploadCommercial
+            formData={commercialData}
+            setFormData={setCommercialData}
+          />
+        )}
+        {propertyType === "Plot/Land" && (
+          <UploadLand formData={landData} setFormData={setLandData} />
+        )}
+      </div>
+
+      {/* Submit Button */}
+      <div className="w-full max-w-4xl mt-8">
+        <button
+          onClick={handleSubmit}
+          disabled={loading}
+          className={`w-full py-3 px-6 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-md transition-all duration-300 ${
+            loading ? "opacity-70 cursor-not-allowed" : ""
+          }`}
         >
-          <div className="p-8 space-y-8">
-            {/* Basic Information Section */}
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-blue-800 border-b pb-2">
-                Basic Information
-              </h2>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Property Title */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Property Title <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
-                    placeholder="Meenakshi High Life Towers"
-                    type="text"
-                    name="title"
-                    required
-                  />
-                </div>
-
-                {/* Property Type */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Property Type <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <select
-                      name="propertyType"
-                      value={propertyType}
-                      onChange={(e) => setPropertyType(e.target.value)}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none"
-                      required
-                    >
-                      <option value="">Select property type</option>
-                      {propertyOptions.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                    <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                      <FiHome className="text-gray-400" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Address */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Full Address <span className="text-red-500">*</span>
-                </label>
-                <input
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  placeholder="Standalone Building, Block 6, 80 Feet Rd"
-                  type="text"
-                  name="address"
-                  required
-                />
-              </div>
-
-              {/* Price and Size */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Property Price (₹) <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <span className="absolute left-3 top-3 text-gray-500">
-                      ₹
-                    </span>
-                    <input
-                      className={`w-full pl-10 pr-4 py-3 rounded-lg border ${
-                        errors.price ? "border-red-500" : "border-gray-300"
-                      } focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
-                      placeholder="1,00,00,000"
-                      type="text"
-                      name="price"
-                      required
-                      onChange={(e) => {
-                        formatCurrency(e);
-                        validateNumber(
-                          "price",
-                          e.target.value.replace(/,/g, "")
-                        );
-                      }}
-                    />
-                    {errors.price && (
-                      <p className="mt-1 text-sm text-red-600">
-                        {errors.price}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                {/* Size */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Size (sq ft) <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    className={`w-full px-4 py-3 rounded-lg border ${
-                      errors.size ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
-                    placeholder="810"
-                    type="number"
-                    name="size"
-                    required
-                    min="0"
-                    onChange={(e) => validateNumber("size", e.target.value)}
-                  />
-                  {errors.size && (
-                    <p className="mt-1 text-sm text-red-600">{errors.size}</p>
-                  )}
-                </div>
-              </div>
-
-              {/* Configuration */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Configuration <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="bhkConfig"
-                    value={bhkConfig}
-                    onChange={(e) => setBhkConfig(e.target.value)}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                  >
-                    <option value="">Select</option>
-                    {bhkOptions.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Bedrooms */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Bedrooms <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    className={`w-full px-4 py-3 rounded-lg border ${
-                      errors.beds ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
-                    placeholder="3"
-                    type="number"
-                    name="beds"
-                    required
-                    min="0"
-                    onChange={(e) => validateNumber("beds", e.target.value)}
-                  />
-                  {errors.beds && (
-                    <p className="mt-1 text-sm text-red-600">{errors.beds}</p>
-                  )}
-                </div>
-
-                {/* Bathrooms */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Bathrooms <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    className={`w-full px-4 py-3 rounded-lg border ${
-                      errors.baths ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
-                    placeholder="2"
-                    type="number"
-                    name="baths"
-                    required
-                    min="0"
-                    onChange={(e) => validateNumber("baths", e.target.value)}
-                  />
-                  {errors.baths && (
-                    <p className="mt-1 text-sm text-red-600">{errors.baths}</p>
-                  )}
-                </div>
-
-                {/* Furnishing */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Furnishing <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="furnishingStatus"
-                    value={furnishingStatus}
-                    onChange={(e) => setFurnishingStatus(e.target.value)}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                  >
-                    <option value="">Select</option>
-                    {furnishingOptions.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              </div>
-
-              {/* Additional Details */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Possession Date <span className="text-red-500">*</span>
-                  </label>
-                  <div className="relative">
-                    <input
-                      type="date"
-                      name="possessionDate"
-                      value={possessionDate}
-                      onChange={(e) => setPossessionDate(e.target.value)}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                      min={new Date().toISOString().split("T")[0]}
-                      required
-                    />
-                  </div>
-                </div>
-
-                {/* Flooring */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Flooring Type <span className="text-red-500">*</span>
-                  </label>
-                  <select
-                    name="flooringType"
-                    value={flooringType}
-                    onChange={(e) => setFlooringType(e.target.value)}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                    required
-                  >
-                    <option value="">Select</option>
-                    {flooringOptions.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Maintenance */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Maintenance (₹/sq ft){" "}
-                    <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    className={`w-full px-4 py-3 rounded-lg border ${
-                      errors.maintainence ? "border-red-500" : "border-gray-300"
-                    } focus:ring-2 focus:ring-blue-500 focus:border-blue-500`}
-                    placeholder="3.2"
-                    type="number"
-                    name="maintainence"
-                    step="0.1"
-                    required
-                    min="0"
-                    onChange={(e) =>
-                      validateNumber("maintainence", e.target.value)
-                    }
-                  />
-                  {errors.maintainence && (
-                    <p className="mt-1 text-sm text-red-600">
-                      {errors.maintainence}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Image Upload Section */}
-
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-blue-800 border-b pb-2">
-                Property Images
-              </h2>
-
-              <CldUploadWidget
-                uploadPreset="unsigned-upload"
-                onSuccessAction={(result) => {
-                  console.log("Upload Success:", result);
-                  const url = result?.info?.secure_url;
-                  console.log("Extracted URL:", url); 
-                  if (url) {
-                    setUploadedUrl(url);
-                    setPreview(url);
-                  }
-                }}
-              >
-                {({ open }) => {
-                  return (
-                    <button
-                      className="w-full p-8 bg-blue-100 poppins-bold rounded-xl border border-blue-800"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        open();
-                      }}
-                    >
-                      Upload an Image
-                    </button>
-                  );
-                }}
-              </CldUploadWidget>
-              {preview && (
-                <div className="mt-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    <img
-                      src={preview}
-                      alt="Preview"
-                      className="rounded-lg border border-gray-200 h-64 object-cover"
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Description Section */}
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-blue-800 border-b pb-2">
-                Description
-              </h2>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Property Description <span className="text-red-500">*</span>
-                </label>
-                <textarea
-                  ref={textareaRef}
-                  name="description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[150px]"
-                  placeholder="Describe your property in detail... (location advantages, special features, nearby amenities)"
-                  required
-                />
-                <div className="text-xs text-gray-500 mt-1">
-                  {description.length}/2000 characters
-                </div>
-              </div>
-            </div>
-
-            {/* Amenities Section */}
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-blue-800 border-b pb-2">
-                Amenities
-              </h2>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Select Available Amenities
-                </label>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                  {amenitiesList.map((amenity) => (
-                    <div key={amenity} className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id={`amenity-${amenity}`}
-                        checked={selectedAmenities.includes(amenity)}
-                        onChange={() => handleAmenityChange(amenity)}
-                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                      />
-                      <label
-                        htmlFor={`amenity-${amenity}`}
-                        className="ml-2 text-sm text-gray-700"
-                      >
-                        {amenity}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Submit Section */}
-            <div className="pt-6">
-              <button
-                type="submit"
-                className={`w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md transition-all duration-300 flex items-center justify-center ${
-                  loading ? "opacity-70 cursor-not-allowed" : ""
-                }`}
-                disabled={loading}
-              >
-                {loading ? (
-                  <>
-                    <svg
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      ></path>
-                    </svg>
-                    Processing...
-                  </>
-                ) : (
-                  "List My Property"
-                )}
-              </button>
-
-              {message && (
-                <div
-                  className={`mt-4 p-3 rounded-lg text-center ${
-                    message.includes("✅")
-                      ? "bg-green-100 text-green-800"
-                      : "bg-red-100 text-red-800"
-                  }`}
-                >
-                  {message}
-                </div>
-              )}
-            </div>
-          </div>
-        </form>
+          {loading ? "Submitting..." : "Submit Property"}
+        </button>
+        {message && (
+          <p
+            className={`mt-4 text-center font-semibold ${
+              message.includes("✅") ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {message}
+          </p>
+        )}
       </div>
     </div>
   );
-}
+};
+
+export default Page;
