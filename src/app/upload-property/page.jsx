@@ -216,9 +216,14 @@ const Page = () => {
         body: JSON.stringify(payload),
       });
 
+      console.log(res);
+      
+
       if (!res.ok) throw new Error("Failed to upload property.");
 
       const data = await res.json();
+      console.log(  "hello ",data);
+      
 
       if (data.success) {
         setMessage("✅ Property uploaded successfully!");

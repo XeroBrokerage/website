@@ -6,49 +6,33 @@ const PropertySchema = new mongoose.Schema(
       type: String,
       required: [true, "Title is required"],
     },
-    price: {
-      type: Number,
-      required: [true, "Price is required"],
-    },
     address: {
       type: String,
       required: [true, "Address is required"],
     },
-    beds: {
+    price: {
       type: Number,
       default: 0,
     },
-    baths: {
+    area: {
       type: Number,
       default: 0,
     },
-    size: {
+    bedrooms: {
       type: Number,
-      required: [true, "Size is required"],
+      default: 0,
     },
-    maintainence: {
+    bathrooms: {
       type: Number,
-      required: [true, "Maintenance is required"],
+      default: 0,
     },
-    bhkConfig: {
+    furnishing: {
       type: String,
-      required: [true, "BHK configuration is required"],
-    },
-    furnishingStatus: {
-      type: String,
-      required: [true, "Furnishing status is required"],
-    },
-    propertyType: {
-      type: String,
-      required: [true, "Property type is required"],
-    },
-    flooringType: {
-      type: String,
-      required: [true, "Flooring type is required"],
+      default: "N/A",
     },
     possessionDate: {
       type: Date,
-      required: [true, "Possession date is required"],
+      default: Date.now,
     },
     description: {
       type: String,
@@ -56,20 +40,51 @@ const PropertySchema = new mongoose.Schema(
       maxlength: 2000,
     },
     amenities: {
-      type: [String], 
+      type: [String],
       default: [],
     },
     images: {
-      type: [String],  
+      type: [String],
       required: [true, "At least one image is required"],
+    },
+    propertyType: {
+      type: String,
+      required: [true, "Property type is required"],
+    },
+    listingType: {
+      type: String,
+      required: [true, "Listing type is required"],
+    },
+    floors: {
+      type: Number,
+      default: 0,
+    },
+    parking: {
+      type: String,
+      default: "N/A",
+    },
+    maintenance: {
+      type: Number,
+      default: 0,
+    },
+    pricePerAcre: {
+      type: Number,
+      default: 0,
+    },
+    totalAcres: {
+      type: Number,
+      default: 0,
+    },
+    landType: {
+      type: String,
+      default: "Not Specified",
     },
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
 
-const Property =
-  mongoose.models.Property || mongoose.model("Property", PropertySchema);
+const Property = mongoose.models.Property || mongoose.model("Property", PropertySchema);
 
 export default Property;
