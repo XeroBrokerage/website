@@ -231,7 +231,7 @@ const ContactPage = () => {
                 </h3>
                 <ul className='space-y-2 text-blue-900'>
                   <li className='flex justify-between'>
-                    <span>Monday - Friday</span>
+                    <span>Mon - Fri</span>
                     <span>9:00 AM - 6:00 PM</span>
                   </li>
                   <li className='flex justify-between'>
