@@ -45,6 +45,11 @@ export default async function PropertyDetails({ params }) {
         <p className='text-gray-600 mt-1'>{property.address}</p>
       </div>
 
+      <div className='mb-6'>
+        
+        <p className='text-gray-600 mt-1'>Uploaded By : {property.uploadedBy.name}</p>
+      </div>
+
       {/* Price and Basic Info */}
       <div className='bg-white rounded-lg shadow-sm p-4 mb-6'>
         <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between'>

@@ -1,6 +1,10 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { toast } from 'react-toastify'
+
 import UploadCommercial from "../../components/upload-property/uploadCommercial";
 import UploadResidence from "../../components/upload-property/uploadResidence";
 import UploadLand from "../../components/upload-property/uploadLand";
@@ -13,6 +17,9 @@ const Page = () => {
   const [listingType, setListingType] = useState("Sell");
 
   const canRent = propertyType !== "Plot/Land";
+
+  const { user, isAuthenticated, logout, updateProfile } = useAuth();
+  const router = useRouter();
 
   // Refs and state for sliding indicator positions
   const propertyRef = useRef(null);
@@ -67,6 +74,18 @@ const Page = () => {
   const [message, setMessage] = useState("");
 
   // Update sliding indicator position for property type
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      toast.error("Please login first to upload Property", {
+        toastId: "auth-error",
+        theme: "dark",
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+      router.push("/Auth/login");
+    }
+  }, [isAuthenticated, router]);
   useEffect(() => {
     if (propertyRef.current) {
       const buttons = propertyRef.current.querySelectorAll("button");
@@ -115,10 +134,14 @@ const Page = () => {
   const handleSubmit = async () => {
     setMessage("");
 
-    // Prepare flat payload with all fields, irrelevant fields set to empty or zero
     let payload = {
       propertyType,
       listingType,
+      uploadedBy: {
+        name: user.name,
+        id: user.id,
+        email:user.email
+      },
       title: "",
       address: "",
       price: "",
@@ -199,6 +222,8 @@ const Page = () => {
         area: landData.totalAcres,
       };
     }
+    console.log("payload : ", payload.uploadedBy);
+
 
     if (!validateFields(requiredFields)) {
       setMessage("❌ Please fill in all required fields before submitting.");
@@ -208,6 +233,8 @@ const Page = () => {
     setLoading(true);
 
     try {
+      console.log("payload : ", payload.uploadedBy);
+      
       const res = await fetch("/api/properties", {
         method: "POST",
         headers: {
@@ -216,17 +243,36 @@ const Page = () => {
         body: JSON.stringify(payload),
       });
 
-      console.log(res);
-      
+      // console.log(res);
 
       if (!res.ok) throw new Error("Failed to upload property.");
 
       const data = await res.json();
-      console.log(  "hello ",data);
       
 
       if (data.success) {
         setMessage("✅ Property uploaded successfully!");
+
+        // Call API to update user's posts array
+        try {
+          const updateRes = await fetch("/api/users/update-posts", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userId: user.id,
+              propertyId: data.property._id,
+            }),
+          });
+
+          if (!updateRes.ok) {
+            console.error("Failed to update user posts");
+          }
+        } catch (err) {
+          console.error("Error updating user posts:", err);
+        }
+
         // Reset all form data
         setResidenceData({
           title: "",

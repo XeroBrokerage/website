@@ -1,6 +1,5 @@
 import { connectDB } from "@/lib/db";
 import PropertyModel from "@/lib/models/Property";
-import { uploadToCloudinary } from "@/lib/uploadToCloudinary";
 
 export async function GET() {
   try {
@@ -19,11 +18,11 @@ export async function POST(req) {
   try {
     await connectDB();
     const body = await req.json();
-    console.log("s1");
 
     const {
       propertyType,
       listingType,
+      uploadedBy,
       title,
       address,
       price,
@@ -98,22 +97,24 @@ export async function POST(req) {
     const bhkConfig = `${cleanedBedrooms} BHK`;
 
     // Create new property document
+    
     const newProperty = await PropertyModel.create({
       propertyType,
       listingType,
+      uploadedBy,
       title,
       address,
       price: cleanedPrice,
-      size: cleanedArea, // Mongoose wants "size", not "area"
+      size: cleanedArea, 
       bedrooms: cleanedBedrooms,
       bathrooms: cleanedBathrooms,
       bhkConfig,
       furnishingStatus: furnishing,
-      flooringType: flooringType || "tiles", // default fallback
+      flooringType: flooringType || "Not Specified", 
       possessionDate: new Date(possessionDate),
       description,
       amenities: Array.isArray(amenities) ? amenities : [],
-      images: Array.isArray(images) ? images : [images], // just in case
+      images: Array.isArray(images) ? images : [images],
       floors: cleanedFloors,
       parking: parking || "N/A",
       maintenance: cleanedMaintenance,
@@ -121,8 +122,6 @@ export async function POST(req) {
       totalAcres: cleanedTotalAcres,
       landType: landType || "",
     });
-
-    console.log(newProperty);
 
     return new Response(
       JSON.stringify({ success: true, property: newProperty }),
@@ -135,7 +134,7 @@ export async function POST(req) {
         success: false,
         error: err.message || "Something went wrong.",
       }),
-      { status: 501 }
+      { status: 500 }
     );
   }
 }

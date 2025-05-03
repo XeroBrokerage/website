@@ -10,6 +10,10 @@ const PropertySchema = new mongoose.Schema(
       type: String,
       required: [true, "Address is required"],
     },
+    uploadedBy: {
+      type: Object,
+      required: [true, "uploadedBy is required"]
+    },    
     price: {
       type: Number,
       default: 0,

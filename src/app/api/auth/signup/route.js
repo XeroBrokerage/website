@@ -5,7 +5,7 @@ import { EqualApproximatelyIcon } from "lucide-react";
 export async function POST(req) {
   try {
     await connectDB();
-    const { name, email, password } = await req.json();
+    const { name, email, password, phone } = await req.json();
 
     const existingUser = await userSchema.findOne({ email });
 
@@ -25,6 +25,7 @@ export async function POST(req) {
     const newUser = new userSchema({
       name,
       email,
+      phone,
       password,
       posts: [],
     });
