@@ -10,7 +10,6 @@ import { TermsAndConditions } from '../../app/terms-and-conditions/page'
 // import { ReactComponent as FooterIcon } from '@/assets/footer.svg'
 const Footer = () => {
   return (
-  
     <footer className='px-4 divide-y text-black'>
       <div className='container flex flex-col justify-between py-10 mx-auto space-y-8 lg:flex-row lg:space-y-0'>
         <div className='lg:w-1/3 flex flex-col items-center lg:items-start'>
@@ -109,9 +108,9 @@ const Footer = () => {
             </h3>
             <ul className='space-y-1'>
               <li>
-                <a rel='noopener noreferrer' href='#'>
-                  Public API
-                </a>
+                <Link href='/notFound404' className='hover:text-blue-300'>
+                  Developers Page
+                </Link>
               </li>
               <li>
                 <a rel='noopener noreferrer' href='#'>

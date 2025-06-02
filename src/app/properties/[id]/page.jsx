@@ -46,8 +46,9 @@ export default async function PropertyDetails({ params }) {
       </div>
 
       <div className='mb-6'>
-        
-        <p className='text-gray-600 mt-1'>Uploaded By : {property.uploadedBy.name}</p>
+        <p className='text-gray-600 mt-1'>
+          Uploaded By : {property.uploadedBy.name}
+        </p>
       </div>
 
       {/* Price and Basic Info */}
