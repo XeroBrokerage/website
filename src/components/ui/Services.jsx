@@ -91,32 +91,38 @@ const ServiceCardCollection = () => {
   const services = [
     {
       title: 'Construction',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+      description:
+        'Build Your Dream Home with XeroBrokerage – Only Pay for Bricks, Not Commissions!',
       svgComponent: <ConstructionSVG />,
     },
     {
       title: 'Home/Land Loan',
-      description: 'Sed do eiusmod tempor incididunt ut labore et dolore.',
+      description:
+        'Get Your Dream Home Loan with XeroBrokerage – Lowest Rates, Fast Approval, No Hidden Fees!',
       svgComponent: <LoanSVG />,
     },
     {
       title: 'Interior',
-      description: 'Magna aliqua. Ut enim ad minim veniam, quis nostrud.',
+      description:
+        'Transform your space without the extra cost—discover XeroBrokerage dream interiors today!',
       svgComponent: <InteriorSVG />,
     },
     {
       title: 'Legal Agreement',
-      description: 'Exercitation ullamco laboris nisi ut aliquip ex ea.',
+      description:
+        'Sign Smarter, Not Harder – Zero Brokerage, Zero Hassle Legal Agreements!',
       svgComponent: <LegalSVG />,
     },
     {
       title: 'Raw Materials',
-      description: 'Commodo consequat. Duis aute irure dolor in reprehenderit.',
+      description:
+        'Source Direct, Save Direct – Zero Brokerage Properties Straight from Raw Material!',
       svgComponent: <MaterialsSVG />,
     },
     {
       title: 'Hardware',
-      description: 'In voluptate velit esse cillum dolore eu fugiat nulla.',
+      description:
+        'Unlock Prime Properties with Zero Brokerage – Your Dream Home, Hardware Strong!',
       svgComponent: <HardwareSVG />,
     },
   ]
