@@ -3,6 +3,8 @@ import { AuthProvider } from '@/context/AuthContext'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './globals.css'
+import WhatsAppButton from '@/components/ui/Whatsapp'
+// import Footer from '@/components/ui/footer'
 
 export const metadata = {
   title: 'XeroBrokerage | No Commission Property Platform',
@@ -21,6 +23,7 @@ export default function RootLayout({ children }) {
           </main>
         </AuthProvider>
         <ToastContainer />
+        <WhatsAppButton />
       </body>
     </html>
   )
