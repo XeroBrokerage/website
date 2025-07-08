@@ -6,6 +6,7 @@ import { FiUploadCloud } from "react-icons/fi";
 
 const UploadResidence = ({ formData, setFormData }) => {
   const textareaRef = useRef(null);
+  
 
   // Specific amenities for residential properties
   const amenitiesList = [

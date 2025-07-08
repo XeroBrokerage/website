@@ -1,0 +1,242 @@
+
+  if (!property) {
+    return (
+      <div className="min-h-screen flex justify-center items-center text-gray-600">
+        Property not found
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen py-6 px-4 sm:px-6 max-w-5xl mx-auto">
+      <nav className="flex items-center text-sm text-gray-500 mb-6 space-x-2">
+        <span>Home</span>
+        <IoIosArrowForward />
+        <span>{property.propertyType}s for Sale</span>
+        <IoIosArrowForward />
+        <span className="text-gray-700 font-semibold truncate">{property.title}</span>
+      </nav>
+
+      <div className="flex flex-col md:flex-row gap-8">
+        {/* Left Column */}
+        <div className="md:w-2/3 space-y-6">
+          {/* Title and Address */}
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">{property.title}</h1>
+            <p className="text-gray-600 mt-1">{property.address}</p>
+            <p className="text-gray-500 mt-1 text-sm">Uploaded by: {property.uploadedBy?.name || 'N/A'}</p>
+          </div>
+
+          {/* Main Image */}
+          <div>
+            <img
+              src={property.images?.[0] || placeholderImage.src}
+              alt="Property Image"
+              className="w-full h-96 object-cover rounded-lg shadow-md"
+            />
+          </div>
+
+          {/* Overview */}
+          <section className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-xl font-semibold mb-4">Overview</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-gray-700">
+              <div>
+                <p className="text-sm text-gray-500">Property Type</p>
+                <p className="font-medium">{property.propertyType}</p>
+              </div>
+              {property.propertyType === 'Residential' && (
+                <div>
+                  <p className="text-sm text-gray-500">Configuration</p>
+                  <p className="font-medium">
+                    {property.bedrooms && property.bedrooms > 0 ? `${property.bedrooms} BHK` : 'Not found'}
+                  </p>
+                </div>
+              )}
+
+              {/* Price display based on propertyType and listingType */}
+              {(property.propertyType === 'Residential' || property.propertyType === 'Commercial') && (
+                <>
+                  {property.listingType === 'Sell' && (
+                    <div>
+                      <p className="text-sm text-gray-500">Total Price</p>
+                      <p className="font-medium">₹{property.price.toLocaleString('en-IN')}</p>
+                    </div>
+                  )}
+                  {property.listingType === 'Rent' && (
+                    <div>
+                      <p className="text-sm text-gray-500">Rental Price Per Month</p>
+                      <p className="font-medium">₹{property.price.toLocaleString('en-IN')}</p>
+                    </div>
+                  )}
+              {/* Removed price per square foot display as per user feedback */}
+              {/* {property.area && (
+                <div>
+                  <p className="text-sm text-gray-500">Price Per Sq. Ft.</p>
+                  <p className="font-medium">
+                    ₹{(property.price / property.area).toFixed(2)}
+                  </p>
+                </div>
+              )} */}
+                </>
+              )}
+
+              {property.propertyType === 'Residential' && (
+                <>
+                  <div>
+                    <p className="text-sm text-gray-500">Bedrooms</p>
+                    <p className="font-medium">{property.bedrooms}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Bathrooms</p>
+                    <p className="font-medium">{property.bathrooms}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Furnishing</p>
+                    <p className="font-medium">{property.furnishingStatus}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Flooring</p>
+                    <p className="font-medium">{property.flooringType}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Maintenance</p>
+                    <p className="font-medium">₹{property.maintenance}/sq.ft/month</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Possession Date</p>
+                    <p className="font-medium">{new Date(property.possessionDate).toLocaleDateString()}</p>
+                  </div>
+                </>
+              )}
+              {property.propertyType === 'Commercial' && (
+                <>
+                  <div>
+                    <p className="text-sm text-gray-500">Floors</p>
+                    <p className="font-medium">{property.floors}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Parking</p>
+                    <p className="font-medium">{property.parking}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Maintenance</p>
+                    <p className="font-medium">₹{property.maintenance}/sq.ft/month</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Possession Date</p>
+                    <p className="font-medium">{new Date(property.possessionDate).toLocaleDateString()}</p>
+                  </div>
+                </>
+              )}
+              {property.propertyType === 'Plot/Land' && (
+                <>
+                  <div>
+                    <p className="text-sm text-gray-500">Price Per Acre</p>
+                    <p className="font-medium">₹{property.pricePerAcre.toLocaleString('en-IN')}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Total Acres</p>
+                    <p className="font-medium">{property.totalAcres}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Total Price</p>
+                    <p className="font-medium">
+                      ₹{(property.pricePerAcre * property.totalAcres).toLocaleString('en-IN')}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Land Type</p>
+                    <p className="font-medium">{property.landType}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Possession Date</p>
+                    <p className="font-medium">{new Date(property.possessionDate).toLocaleDateString()}</p>
+                  </div>
+                </>
+              )}
+            </div>
+          </section>
+
+          {/* Description */}
+          <section className="bg-white rounded-lg shadow p-6">
+            <h2 className="text-xl font-semibold mb-4">Description</h2>
+            <p className="text-gray-700 whitespace-pre-line">{property.description}</p>
+          </section>
+
+          {/* Amenities */}
+          {property.amenities && property.amenities.length > 0 && (
+            <section className="bg-white rounded-lg shadow p-6">
+              <h2 className="text-xl font-semibold mb-4">Amenities</h2>
+              <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 text-gray-700 list-disc list-inside">
+                {property.amenities.map((amenity, idx) => (
+                  <li key={idx}>{amenity}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
+
+        {/* Right Column */}
+        <aside className="md:w-1/3 bg-white rounded-lg shadow p-6 sticky top-6 h-fit">
+          {/* Price Display Section */}
+          <section className="mb-6 p-6 bg-white rounded-lg shadow-md text-center">
+            {(property.propertyType === 'Residential' || property.propertyType === 'Commercial') && (
+              <>
+                {property.listingType === 'Sell' && property.price > 0 && (
+                  <p className="text-4xl font-extrabold text-primary mb-2">
+                    ₹{property.price.toLocaleString('en-IN')}
+                  </p>
+                )}
+                {property.listingType === 'Rent' && property.price > 0 && (
+                  <p className="text-4xl font-extrabold text-primary mb-2">
+                    ₹{property.price.toLocaleString('en-IN')} <span className="text-lg font-normal">/ month</span>
+                  </p>
+                )}
+              </>
+            )}
+            {property.propertyType === 'Plot/Land' && (
+              <>
+                {property.pricePerAcre && property.pricePerAcre > 0 && (
+                  <p className="text-2xl font-semibold text-primary mb-1">
+                    Price per Acre: ₹{property.pricePerAcre.toLocaleString('en-IN')}
+                  </p>
+                )}
+                {property.totalAcres && property.totalAcres > 0 && (
+                  <p className="text-lg text-gray-700 mb-1">Total Acres: {property.totalAcres}</p>
+                )}
+                {property.pricePerAcre && property.pricePerAcre > 0 && property.totalAcres && property.totalAcres > 0 && (
+                  <p className="text-3xl font-extrabold text-primary">
+                    Total Price: ₹{(property.pricePerAcre * property.totalAcres).toLocaleString('en-IN')}
+                  </p>
+                )}
+              </>
+            )}
+          </section>
+
+          <h3 className="text-lg font-semibold mb-4">Contact Owner</h3>
+          <div className="space-y-4">
+            <button className="w-full bg-green-600 text-white py-3 rounded-lg font-medium hover:bg-green-700 transition-colors">
+              Call Now
+            </button>
+            <button className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors">
+              WhatsApp
+            </button>
+            <button className="w-full border border-blue-600 text-blue-600 py-3 rounded-lg font-medium hover:bg-blue-50 transition-colors">
+              Email
+            </button>
+          </div>
+        </aside>
+      </div>
+
+      {/* Map Section */}
+      <section className="bg-white rounded-lg shadow p-6 mt-6">
+        <h2 className="text-xl font-semibold mb-4">Location Map</h2>
+        <div className="h-64 bg-gray-200 rounded-lg flex items-center justify-center text-gray-500">
+          Map View - {property.address}
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+}

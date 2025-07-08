@@ -146,6 +146,7 @@ const UploadLand = ({ formData, setFormData }) => {
               type="text"
               name="price"
               value={formData.price}
+              onChange={handleChange}
               readOnly
               className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 bg-gray-100 cursor-not-allowed"
               placeholder="Auto-calculated"
@@ -170,6 +171,20 @@ const UploadLand = ({ formData, setFormData }) => {
             <option value="industrial">Industrial</option>
           </select>
         </div>
+        <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Possession Date <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="date"
+              name="possessionDate"
+              value={formData.possessionDate}
+              onChange={handleChange}
+              className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              min={new Date().toISOString().split("T")[0]}
+              required
+            />
+          </div>
 
         {/* Image Upload Section */}
         <div className="space-y-6">

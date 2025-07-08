@@ -88,7 +88,7 @@ export default function BuyOrSell() {
 
         {/* Sell or Rent - Special full width button */}
         <Link
-          href='/upload-property'
+          href='/property-upload'
           className='group relative overflow-hidden col-span-2 px-6 py-4 bg-gradient-to-r bg-[#FDC700] text-white text-sm sm:text-base rounded-xl text-center transition-all duration-300 hover:shadow-xl '
         >
           <span className='relative z-10 font-semibold'>

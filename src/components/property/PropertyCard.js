@@ -18,7 +18,38 @@ export default function PropertyCard({ property }) {
 
       <div className="card-body px-5 py-3 space-y-2 text-black">
         <h3 className="text-3xl poppins-bold tracking-wide">
-          ₹{property.price.toLocaleString("en-IN")}
+          {(property.propertyType === 'Residential' || property.propertyType === 'Commercial') && (
+            <>
+              {property.listingType === 'Sell' && <>₹{property.price.toLocaleString("en-IN")}</>}
+              {property.listingType === 'Rent' && <>₹{property.price.toLocaleString("en-IN")}</>}
+              {property.area && property.area > 0 && (
+                <span className="block text-sm font-normal">
+                  Price per sq. ft.: ₹{(property.price / property.area).toFixed(2)}
+                </span>
+              )}
+            </>
+          )}
+          {property.propertyType === 'Plot/Land' && (
+            <>
+              {property.pricePerAcre && property.pricePerAcre > 0 ? (
+                <span>Price per acre: ₹{property.pricePerAcre.toLocaleString("en-IN")}</span>
+              ) : (
+                <span>Price per acre: Not found</span>
+              )}
+              <br />
+              {property.totalAcres && property.totalAcres > 0 ? (
+                <span>Total acres: {property.totalAcres}</span>
+              ) : (
+                <span>Total acres: Not found</span>
+              )}
+              <br />
+              {property.pricePerAcre && property.pricePerAcre > 0 && property.totalAcres && property.totalAcres > 0 ? (
+                <span>Total price: ₹{(property.pricePerAcre * property.totalAcres).toLocaleString("en-IN")}</span>
+              ) : (
+                <span>Total price: Not found</span>
+              )}
+            </>
+          )}
         </h3>
         <p className="text-sm opacity-80">{property.address}</p>
         <div className="flex gap-3 mt-2 text-sm">

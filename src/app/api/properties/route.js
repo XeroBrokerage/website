@@ -14,6 +14,7 @@ export async function GET() {
     );
   }
 }
+
 export async function POST(req) {
   try {
     await connectDB();
@@ -87,7 +88,6 @@ export async function POST(req) {
 
     // Clean and process data
     const cleanedPrice = Number(price?.toString().replace(/,/g, "")) || 0;
-    const cleanedArea = Number(area) || 0;
     const cleanedMaintenance = Number(maintenance) || 0;
     const cleanedBedrooms = Number(bedrooms) || 0;
     const cleanedBathrooms = Number(bathrooms) || 0;
@@ -105,7 +105,7 @@ export async function POST(req) {
       title,
       address,
       price: cleanedPrice,
-      size: cleanedArea, 
+      area: cleanedArea, 
       bedrooms: cleanedBedrooms,
       bathrooms: cleanedBathrooms,
       bhkConfig,
