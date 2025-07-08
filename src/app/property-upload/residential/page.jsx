@@ -7,10 +7,10 @@ import React, { useState, useRef, useEffect } from "react";
 const residential = () => {
   const [formData, setFormData] = useState({
     title: "",
-    price: "",
-    area: "",
     amenities: [],
 
+    area: "",
+    price: "",
     advertiseAs: "", //rent / sell
     residentialType: "", // apartment / house / villa
     bhkConfig: "", // 1bhk / 2bhk
@@ -30,6 +30,12 @@ const residential = () => {
       textarea.style.height = `${textarea.scrollHeight}px`;
     }
   }, [formData.description]);
+
+  const formatCurrency = (e) => {
+    let value = e.target.value.replace(/\D/g, "");
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    e.target.value = value;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -126,6 +132,41 @@ const residential = () => {
                 <option value="semi-furnished">Semi Furnished</option>
                 <option value="unfurnished">Unfurnished</option>
               </select>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Property Price (₹) <span className="text-red-500">*</span>
+              </label>
+              <div className="relative">
+                <span className="absolute left-3 top-3 text-gray-500">₹</span>
+                <input
+                  type="text"
+                  name="price"
+                  value={formData.price}
+                  onChange={(e) => {
+                    formatCurrency(e);
+                    handleChange(e);
+                  }}
+                  className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="1,00,00,000"
+                  required
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Area (sq ft) <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="number"
+                name="area"
+                value={formData.area}
+                onChange={handleChange}
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="1200"
+                required
+                min="0"
+              />
             </div>
           </div>
 
