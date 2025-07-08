@@ -3,10 +3,21 @@
 import { CldUploadWidget } from "next-cloudinary";
 import { FiUploadCloud } from "react-icons/fi";
 import React, { useState, useRef, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const landPlot = () => {
+  const { user, isAuthenticated } = useAuth();
+  const router = useRouter();
+
   const textareaRef = useRef(null);
   const [formData, setFormData] = useState({
+    uploadedBy: {
+      name: user.name,
+      id: user.id,
+      email: user.email,
+    },
     propertyType: "",
     pricePerSqFt: "",
     area: "",
@@ -15,6 +26,21 @@ const landPlot = () => {
     images: "",
     description: "",
   });
+
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      toast.error("Please login first to upload Property", {
+        toastId: "auth-error",
+        theme: "dark",
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+      router.push("/Auth/login");
+    }
+  }, [isAuthenticated, router]);
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -35,8 +61,56 @@ const landPlot = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleSubmit = async () => {
+    setMessage("");
+
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/properties/plot", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) throw new Error("Failed to upload property.");
+      const data = await res.json();
+
+      console.log("DATA" , data);
+      if (data.success) {
+        setMessage("✅ Property uploaded successfully!");
+
+        const updateRes = await fetch("/api/users/update-posts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+         
+          
+          body: JSON.stringify({
+            userId: user.id,
+            propertyId: data.property._id,
+          }),
+        });
+
+        if (!updateRes.ok) {
+          console.error("❌ Failed to update user posts");
+        }
+      } else {
+        setMessage(`❌ ${data.error || "Upload failed. Please try again."}`);
+      }
+    } catch (err) {
+      setMessage("❌ Upload failed. Please try again.");
+      console.error("UPLOAD ERROR:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <div>
+    <div className="flex flex-col items-center min-h-fit py-12 px-4 sm:px-6 lg:px-8 mx-auto max-w-[98vw] ">
       <form className="max-w-4xl mx-auto bg-white p-8  shadow-xl overflow-hidden">
         <h2 className="text-2xl font-bold mb-6 text-blue-800">
           Upload your Land / Plot
@@ -52,6 +126,9 @@ const landPlot = () => {
               onChange={handleChange}
               className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             >
+              <option value="" disabled hidden>
+                Select
+              </option>
               <option value="Agricultural Land">Agricultural Land</option>
               <option value="Residential Plot">Residential Plot</option>
               <option value="Commercial Plot">Commercial Plot</option>
@@ -113,6 +190,9 @@ const landPlot = () => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
+                <option value="" disabled hidden>
+                  Select
+                </option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
@@ -196,6 +276,31 @@ const landPlot = () => {
           </div>
         </div>
       </form>
+      <p className="mt-4">check this before submitting</p>
+      <pre className="mt-1 bg-black text-white p-2 rounded text-xs">
+        {JSON.stringify(formData, null, 2)}
+      </pre>
+
+      <div className="w-full max-w-4xl mt-8">
+        <button
+          onClick={handleSubmit}
+          disabled={loading}
+          className={`w-full py-3 px-6 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-md transition-all duration-300 ${
+            loading ? "opacity-70 cursor-not-allowed" : ""
+          }`}
+        >
+          {loading ? "Submitting..." : "Submit Property"}
+        </button>
+        {message && (
+          <p
+            className={`mt-4 text-center font-semibold ${
+              message.includes("✅") ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {message}
+          </p>
+        )}
+      </div>
     </div>
   );
 };

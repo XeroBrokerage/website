@@ -20,111 +20,115 @@ export async function POST(req) {
     await connectDB();
     const body = await req.json();
 
-    const {
-      propertyType,
-      listingType,
-      uploadedBy,
-      title,
-      address,
-      price,
-      area,
-      bedrooms,
-      bathrooms,
-      furnishing,
-      possessionDate,
-      description,
-      amenities,
-      images,
-      floors,
-      parking,
-      maintenance,
-      pricePerAcre,
-      totalAcres,
-      landType,
-      flooringType, // Add this in the frontend too!
-    } = body;
+    // const {
+    //   propertyType,
+    //   listingType,
+    //   uploadedBy,
+    //   title,
+    //   address,
+    //   price,
+    //   area,
+    //   bedrooms,
+    //   bathrooms,
+    //   furnishing,
+    //   possessionDate,
+    //   description,
+    //   amenities,
+    //   images,
+    //   floors,
+    //   parking,
+    //   maintenance,
+    //   pricePerAcre,
+    //   totalAcres,
+    //   landType,
+    //   flooringType, // Add this in the frontend too!
+    // } = body;
 
-    if (propertyType === "Residential") {
-      if (bedrooms === undefined || bathrooms === undefined) {
-        return new Response(
-          JSON.stringify({
-            success: false,
-            error: "Missing bedrooms or bathrooms for Residential property.",
-          }),
-          { status: 400 }
-        );
-      }
-    } else if (propertyType === "Commercial") {
-      if (
-        floors === undefined ||
-        parking === undefined ||
-        maintenance === undefined
-      ) {
-        return new Response(
-          JSON.stringify({
-            success: false,
-            error:
-              "Missing floors, parking, or maintenance for Commercial property.",
-          }),
-          { status: 400 }
-        );
-      }
-    } else if (propertyType === "Plot/Land") {
-      if (
-        pricePerAcre === undefined ||
-        totalAcres === undefined ||
-        landType === undefined
-      ) {
-        return new Response(
-          JSON.stringify({
-            success: false,
-            error:
-              "Missing pricePerAcre, totalAcres, or landType for Plot/Land property.",
-          }),
-          { status: 400 }
-        );
-      }
-    }
+    // if (propertyType === "Residential") {
+    //   if (bedrooms === undefined || bathrooms === undefined) {
+    //     return new Response(
+    //       JSON.stringify({
+    //         success: false,
+    //         error: "Missing bedrooms or bathrooms for Residential property.",
+    //       }),
+    //       { status: 400 }
+    //     );
+    //   }
+    // } else if (propertyType === "Commercial") {
+    //   if (
+    //     floors === undefined ||
+    //     parking === undefined ||
+    //     maintenance === undefined
+    //   ) {
+    //     return new Response(
+    //       JSON.stringify({
+    //         success: false,
+    //         error:
+    //           "Missing floors, parking, or maintenance for Commercial property.",
+    //       }),
+    //       { status: 400 }
+    //     );
+    //   }
+    // } else if (propertyType === "Plot/Land") {
+    //   if (
+    //     pricePerAcre === undefined ||
+    //     totalAcres === undefined ||
+    //     landType === undefined
+    //   ) {
+    //     return new Response(
+    //       JSON.stringify({
+    //         success: false,
+    //         error:
+    //           "Missing pricePerAcre, totalAcres, or landType for Plot/Land property.",
+    //       }),
+    //       { status: 400 }
+    //     );
+    //   }
+    // }
 
     // Clean and process data
-    const cleanedPrice = Number(price?.toString().replace(/,/g, "")) || 0;
-    const cleanedMaintenance = Number(maintenance) || 0;
-    const cleanedBedrooms = Number(bedrooms) || 0;
-    const cleanedBathrooms = Number(bathrooms) || 0;
-    const cleanedFloors = Number(floors) || 0;
-    const cleanedPricePerAcre = Number(pricePerAcre) || 0;
-    const cleanedTotalAcres = Number(totalAcres) || 0;
-    const bhkConfig = `${cleanedBedrooms} BHK`;
+    // const cleanedPrice = Number(price?.toString().replace(/,/g, "")) || 0;
+    // const cleanedMaintenance = Number(maintenance) || 0;
+    // const cleanedBedrooms = Number(bedrooms) || 0;
+    // const cleanedBathrooms = Number(bathrooms) || 0;
+    // const cleanedFloors = Number(floors) || 0;
+    // const cleanedPricePerAcre = Number(pricePerAcre) || 0;
+    // const cleanedTotalAcres = Number(totalAcres) || 0;
+    // const bhkConfig = `${cleanedBedrooms} BHK`;
 
     // Create new property document
     
-    const newProperty = await PropertyModel.create({
-      propertyType,
-      listingType,
-      uploadedBy,
-      title,
-      address,
-      price: cleanedPrice,
-      area: cleanedArea, 
-      bedrooms: cleanedBedrooms,
-      bathrooms: cleanedBathrooms,
-      bhkConfig,
-      furnishingStatus: furnishing,
-      flooringType: flooringType || "Not Specified", 
-      possessionDate: new Date(possessionDate),
-      description,
-      amenities: Array.isArray(amenities) ? amenities : [],
-      images: Array.isArray(images) ? images : [images],
-      floors: cleanedFloors,
-      parking: parking || "N/A",
-      maintenance: cleanedMaintenance,
-      pricePerAcre: cleanedPricePerAcre,
-      totalAcres: cleanedTotalAcres,
-      landType: landType || "",
-    });
+    // const newProperty = await PropertyModel.create({
+    //   propertyType,
+    //   listingType,
+    //   uploadedBy,
+    //   title,
+    //   address,
+    //   price: cleanedPrice,
+    //   area: cleanedArea, 
+    //   bedrooms: cleanedBedrooms,
+    //   bathrooms: cleanedBathrooms,
+    //   bhkConfig,
+    //   furnishingStatus: furnishing,
+    //   flooringType: flooringType || "Not Specified", 
+    //   possessionDate: new Date(possessionDate),
+    //   description,
+    //   amenities: Array.isArray(amenities) ? amenities : [],
+    //   images: Array.isArray(images) ? images : [images],
+    //   floors: cleanedFloors,
+    //   parking: parking || "N/A",
+    //   maintenance: cleanedMaintenance,
+    //   pricePerAcre: cleanedPricePerAcre,
+    //   totalAcres: cleanedTotalAcres,
+    //   landType: landType || "",
+    // });
+
+    console.log(body);
+    
+    
 
     return new Response(
-      JSON.stringify({ success: true, property: newProperty }),
+      JSON.stringify({ success: true, body: body  }),
       { status: 200, headers: { "Content-Type": "application/json" } }
     );
   } catch (err) {

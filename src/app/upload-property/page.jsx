@@ -91,7 +91,7 @@ const Page = () => {
       const buttons = propertyRef.current.querySelectorAll("button");
       const index = propertyOptions.indexOf(propertyType);
       if (buttons[index]) {
-        const button = buttons[index];
+        const button = buttons[index]; 
         setPropertyIndicatorStyle({
           width: button.offsetWidth,
           left: button.offsetLeft,

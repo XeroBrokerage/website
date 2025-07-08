@@ -3,10 +3,21 @@
 import { CldUploadWidget } from "next-cloudinary";
 import { FiUploadCloud } from "react-icons/fi";
 import React, { useState, useRef, useEffect } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const pgHostel = () => {
+  const { user, isAuthenticated } = useAuth();
+  const router = useRouter();
+
   const textareaRef = useRef(null);
   const [formData, setFormData] = useState({
+    uploadedBy: {
+      name: user.name,
+      id: user.id,
+      email: user.email,
+    },
     rentPerMonth: "",
     sharingType: "",
     foodIncluded: "",
@@ -18,6 +29,21 @@ const pgHostel = () => {
     images: "",
     description: "",
   });
+
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      toast.error("Please login first to upload Property", {
+        toastId: "auth-error",
+        theme: "dark",
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+      router.push("/Auth/login");
+    }
+  }, [isAuthenticated, router]);
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -38,12 +64,77 @@ const pgHostel = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  return (
-    <div>
-      <form className="max-w-4xl mx-auto bg-white p-8 shadow-xl overflow-hidden">
-        <h2 className="text-2xl font-bold mb-6 text-blue-800">PG / Hostel Listing</h2>
-        <div className="space-y-6">
+  const validateFields = () => {
+    for (const [key, value] of Object.entries(formData)) {
+      if (
+        value === "" ||
+        value === null ||
+        value === undefined ||
+        (Array.isArray(value) && value.length === 0)
+      ) {
+        return false;
+      }
+    }
+    return true;
+  };
 
+  const handleSubmit = async () => {
+    setMessage("");
+
+    if (!validateFields()) {
+      setMessage("❌ Please fill in all required fields before submitting.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/properties/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) throw new Error("Failed to upload property.");
+      const data = await res.json();
+
+      if (data.success) {
+        setMessage("✅ Property uploaded successfully!");
+
+        const updateRes = await fetch("/api/users/update-posts", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: user.id,
+            propertyId: data.property._id,
+          }),
+        });
+
+        if (!updateRes.ok) {
+          console.error("❌ Failed to update user posts");
+        }
+      } else {
+        setMessage(`❌ ${data.error || "Upload failed. Please try again."}`);
+      }
+    } catch (err) {
+      setMessage("❌ Upload failed. Please try again.");
+      console.error("UPLOAD ERROR:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="flex flex-col items-center min-h-fit py-12 px-4 sm:px-6 lg:px-8 mx-auto max-w-[98vw] ">
+      <form className="max-w-4xl mx-auto bg-white p-8 shadow-xl overflow-hidden">
+        <h2 className="text-2xl font-bold mb-6 text-blue-800">
+          PG / Hostel Listing
+        </h2>
+        <div className="space-y-6">
           {/* Rent and Sharing */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
@@ -77,7 +168,9 @@ const pgHostel = () => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
-                <option value="">Select</option>
+                <option value="" disabled hidden>
+                  Select
+                </option>
                 <option value="Single">Single</option>
                 <option value="Double">Double</option>
                 <option value="Triple">Triple</option>
@@ -95,7 +188,9 @@ const pgHostel = () => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
-                <option value="">Select</option>
+                <option value="" disabled hidden>
+                  Select
+                </option>
                 <option value="No">No</option>
                 <option value="Breakfast Only">Breakfast Only</option>
                 <option value="Lunch & Dinner">Lunch & Dinner</option>
@@ -116,7 +211,9 @@ const pgHostel = () => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
-                <option value="">Select</option>
+                <option value="" disabled hidden>
+                  Select
+                </option>
                 <option value="Fully Furnished">Fully Furnished</option>
                 <option value="Semi Furnished">Semi Furnished</option>
                 <option value="Unfurnished">Unfurnished</option>
@@ -133,7 +230,9 @@ const pgHostel = () => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
-                <option value="">Select</option>
+                <option value="" disabled hidden>
+                  Select
+                </option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
@@ -149,7 +248,9 @@ const pgHostel = () => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
-                <option value="">Select</option>
+                <option value="" disabled hidden>
+                  Select
+                </option>
                 <option value="AC">AC</option>
                 <option value="Non-AC">Non-AC</option>
                 <option value="Both Available">Both Available</option>
@@ -169,7 +270,9 @@ const pgHostel = () => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               >
-                <option value="">Select</option>
+                <option value="" disabled hidden>
+                  Select
+                </option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
@@ -193,7 +296,9 @@ const pgHostel = () => {
 
           {/* Image Upload */}
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-blue-800 border-b pb-2">Upload Photos</h2>
+            <h2 className="text-2xl font-bold text-blue-800 border-b pb-2">
+              Upload Photos
+            </h2>
 
             <CldUploadWidget
               uploadPreset="unsigned-upload"
@@ -231,7 +336,9 @@ const pgHostel = () => {
 
           {/* Description */}
           <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-blue-800 border-b pb-2">Description</h2>
+            <h2 className="text-2xl font-bold text-blue-800 border-b pb-2">
+              Description
+            </h2>
 
             <textarea
               ref={textareaRef}
@@ -245,6 +352,31 @@ const pgHostel = () => {
           </div>
         </div>
       </form>
+      <p className="mt-4">check this before submitting</p>
+      <pre className="mt-1 bg-black text-white p-2 rounded text-xs">
+        {JSON.stringify(formData, null, 2)}
+      </pre>
+
+      <div className="w-full max-w-4xl mt-8">
+        <button
+          onClick={handleSubmit}
+          disabled={loading}
+          className={`w-full py-3 px-6 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-lg shadow-md transition-all duration-300 ${
+            loading ? "opacity-70 cursor-not-allowed" : ""
+          }`}
+        >
+          {loading ? "Submitting..." : "Submit Property"}
+        </button>
+        {message && (
+          <p
+            className={`mt-4 text-center font-semibold ${
+              message.includes("✅") ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {message}
+          </p>
+        )}
+      </div>
     </div>
   );
 };
