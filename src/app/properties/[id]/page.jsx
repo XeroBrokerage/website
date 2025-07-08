@@ -59,15 +59,18 @@ export default async function PropertyDetails({ params }) {
           ))}
         </ul>
       </div>
-    );
 
-  const renderByType = () => {
-    switch (propertyType) {
-      case "Residential":
-        return (
-          <>
-            <p>
-              <strong>Price:</strong> ₹{price}
+      <div className='mb-6'>
+        
+        <p className='text-gray-600 mt-1'>Uploaded By : {property.uploadedBy.name}</p>
+      </div>
+
+      {/* Price and Basic Info */}
+      <div className='bg-white rounded-lg shadow-sm p-4 mb-6'>
+        <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between'>
+          <div>
+            <p className='text-2xl font-bold text-blue-600'>
+              ₹{property.price.toLocaleString()}
             </p>
             <p>
               <strong>Area:</strong> {area} sq.ft

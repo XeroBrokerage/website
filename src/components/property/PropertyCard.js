@@ -1,55 +1,25 @@
-import Image from "next/image";
-import Link from "next/link";
-import placeholderImage from '@/assets/placeholder-house.png';
+import Image from 'next/image'
+import Link from 'next/link'
+import placeholderImage from '@/assets/placeholder-house.png'
 
 export default function PropertyCard({ property }) {
   return (
-    <div className="card bg-black/10 backdrop-blur-sm shadow-md hover:shadow-xl transition-shadow rounded-[30px] lg:w-[30%] md:w-[45%] w-[95%] overflow-hidden">
-      <figure className="relative w-full h-0 pb-[66.66%] overflow-hidden  shadow-sm group">
+    <div className='card bg-white/90 backdrop-blur-xs border border-gray-200/50 shadow-sm hover:shadow-md transition-all rounded-2xl overflow-hidden hover:-translate-y-1 w-full max-w-[350px] mx-auto'>
+      <figure className='relative w-full h-0 pb-[75%] overflow-hidden group'>
         <Image
-          alt={property.title || "Property Image"}
-          src={property.images[0] || placeholderImage} 
-          layout="fill" 
-          objectFit="cover" 
-          className="object-cover group-hover:scale-102 transition-transform duration-300 ease-in-out"
-          priority={property.featured} 
+          alt={property.title || 'Property Image'}
+          src={property.images[0] || placeholderImage}
+          layout='fill'
+          objectFit='cover'
+          className='object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out'
+          priority={property.featured}
         />
+        <div className='absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300' />
       </figure>
 
       <div className="card-body px-5 py-3 space-y-2 text-black">
         <h3 className="text-3xl poppins-bold tracking-wide">
-          {(property.propertyType === 'Residential' || property.propertyType === 'Commercial') && (
-            <>
-              {property.listingType === 'Sell' && <>₹{property.price.toLocaleString("en-IN")}</>}
-              {property.listingType === 'Rent' && <>₹{property.price.toLocaleString("en-IN")}</>}
-              {property.area && property.area > 0 && (
-                <span className="block text-sm font-normal">
-                  Price per sq. ft.: ₹{(property.price / property.area).toFixed(2)}
-                </span>
-              )}
-            </>
-          )}
-          {property.propertyType === 'Plot/Land' && (
-            <>
-              {property.pricePerAcre && property.pricePerAcre > 0 ? (
-                <span>Price per acre: ₹{property.pricePerAcre.toLocaleString("en-IN")}</span>
-              ) : (
-                <span>Price per acre: Not found</span>
-              )}
-              <br />
-              {property.totalAcres && property.totalAcres > 0 ? (
-                <span>Total acres: {property.totalAcres}</span>
-              ) : (
-                <span>Total acres: Not found</span>
-              )}
-              <br />
-              {property.pricePerAcre && property.pricePerAcre > 0 && property.totalAcres && property.totalAcres > 0 ? (
-                <span>Total price: ₹{(property.pricePerAcre * property.totalAcres).toLocaleString("en-IN")}</span>
-              ) : (
-                <span>Total price: Not found</span>
-              )}
-            </>
-          )}
+          ₹{property.price.toLocaleString("en-IN")}
         </h3>
         <p className="text-sm opacity-80">{property.address}</p>
         <div className="flex gap-3 mt-2 text-sm">
@@ -63,17 +33,27 @@ export default function PropertyCard({ property }) {
             </span>
           </div>
 
-          <div className="card-actions flex flex-col gap-2">
-            <Link
-              href={`/properties/${property._id}`}
-              className="btn  backdrop-blur-xs p-2 px-4 hover:bg-black/30 text-black btn-sm rounded-full w-fit transition text-center"
-            >
-              View Details
-            </Link>
-            <p className="text-xs opacity-60 text-center">ID: {property._id}</p>
-          </div>
+        <p className='text-sm text-gray-600 line-clamp-1'>{property.address}</p>
+
+        <div className='flex items-center gap-2 text-xs text-gray-500 mt-1'>
+          <span>{property.beds} beds</span>
+          {/* <span>•</span> */}
+          <span>{property.baths} baths</span>
+          {property.area && (
+            <>
+              {/* <span>•</span> */}
+              <span>{property.size} sqft</span>
+            </>
+          )}
         </div>
+
+        <Link
+          href={`/properties/${property._id}`}
+          className='mt-2 inline-block w-full text-center text-sm font-medium px-3 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition-colors'
+        >
+          View Details
+        </Link>
       </div>
     </div>
-  );
+  )
 }
