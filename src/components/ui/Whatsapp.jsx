@@ -4,9 +4,9 @@ import { FaWhatsapp } from 'react-icons/fa'
 import styled from 'styled-components'
 
 const WhatsAppButton = () => {
-  // Replace with your WhatsApp number in international format (no spaces or special characters)
   const phoneNumber = '9300606666'
-  const message = 'Hello! I have a question.' // Pre filled message
+  const message = 'Hello! I have a question.'
+  const hoverMessage = 'Chat with us!'
 
   const handleClick = () => {
     window.open(
@@ -16,16 +16,27 @@ const WhatsAppButton = () => {
   }
 
   return (
-    <FloatingButton onClick={handleClick}>
-      <FaWhatsapp size={32} />
-    </FloatingButton>
+    <FloatingContainer>
+      <Tooltip>{hoverMessage}</Tooltip>
+      <FloatingButton onClick={handleClick}>
+        <FaWhatsapp size={32} />
+      </FloatingButton>
+    </FloatingContainer>
   )
 }
 
-const FloatingButton = styled.div`
+// Styled components
+const FloatingContainer = styled.div`
   position: fixed;
   bottom: 30px;
   right: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 1000;
+`
+
+const FloatingButton = styled.div`
   width: 60px;
   height: 60px;
   background-color: #25d366;
@@ -37,7 +48,6 @@ const FloatingButton = styled.div`
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
-  z-index: 1000;
 
   &:hover {
     background-color: #128c7e;
@@ -47,6 +57,40 @@ const FloatingButton = styled.div`
 
   &:active {
     transform: scale(0.95);
+  }
+`
+
+const Tooltip = styled.span`
+  visibility: hidden;
+  width: max-content;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 12px;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  right: 50%;
+  transform: translateX(50%);
+  margin-bottom: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  ${FloatingContainer}:hover & {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #333 transparent transparent transparent;
   }
 `
 
