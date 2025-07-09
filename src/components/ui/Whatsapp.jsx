@@ -1,18 +1,28 @@
 'use client'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaWhatsapp } from 'react-icons/fa'
 import styled from 'styled-components'
 
 const WhatsAppButton = () => {
-  const phoneNumber = '9300606666'
+  const [isMounted, setIsMounted] = useState(false)
+  const phoneNumber = '919300606666'
   const message = 'Hello! I have a question.'
   const hoverMessage = 'Chat with us!'
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const handleClick = () => {
     window.open(
       `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`,
       '_blank',
     )
+  }
+
+  // Don't render on server to avoid hydration mismatch
+  if (!isMounted) {
+    return null
   }
 
   return (
@@ -25,7 +35,7 @@ const WhatsAppButton = () => {
   )
 }
 
-// Styled components
+// Styled components with deterministic class names
 const FloatingContainer = styled.div`
   position: fixed;
   bottom: 30px;
