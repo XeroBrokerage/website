@@ -89,7 +89,7 @@ const pgHostel = () => {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/properties/", {
+      const res = await fetch("/api/properties/hostel", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
