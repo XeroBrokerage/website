@@ -43,7 +43,6 @@ const Hero = () => {
           Explore verified properties across Chhattisgarh — with zero brokerage.
         </p>
       </LayoutGroup>
-      {/* <LookingFor /> */}
     </div>
   )
 }

@@ -1,103 +1,114 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import Link from 'next/link'
+import { motion } from "framer-motion";
+import Link from "next/link";
+import {
+  Home,
+  Building2,
+  Landmark,
+  BedDouble,
+  Store,
+  Hotel,
+  UploadCloud,
+} from "lucide-react";
 
 export default function BuyOrSell() {
   return (
     <motion.section
-      className='flex flex-col items-center justify-center gap-6 text-black px-4 py-8'
-      initial={{ opacity: 0, y: 50 }}
+      className="relative flex flex-col items-center justify-center px-6 py-16 text-black"
+      initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      transition={{ type: "spring", stiffness: 260, damping: 20 }}
     >
+      {/* Optional Logo */}
+      <div className="mb-4">
+        <img src="/home-art.png" alt="Logo" className="lg:max-w-4xl " />
+      </div>
+
+      {/* Heading */}
       <motion.h2
-        className='text-2xl sm:text-3xl md:text-4xl font-bold text-center text-gray-800'
-        initial={{ opacity: 0, y: -20 }}
+        className="text-2xl sm:text-3xl md:text-4xl font-bold text-center tracking-tight mb-10 text-neutral-900"
+        initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
       >
-        You are looking for
+        What kind of property are you looking for?
       </motion.h2>
 
-      <motion.div
-        className='grid grid-cols-2 gap-4 w-full max-w-2xl'
-        initial={{ scale: 0.95 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 0.4 }}
+      {/* === Top Action Buttons (Buy / Rent) === */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10 w-full max-w-3xl">
+        <MainActionCard
+          href="/viewProperty/Land-Plots"
+          icon={<Home className="w-5 h-5" />}
+          label="Buy Property"
+          gradient="from-black to-neutral-800"
+        />
+        <MainActionCard
+          href="/properties"
+          icon={<BedDouble className="w-5 h-5" />}
+          label="Rent Property"
+          gradient="from-black to-neutral-800"
+        />
+      </div>
+
+      {/* === Property Type Cards === */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 gap-3 mb-12 w-full max-w-4xl">
+        <SubActionCard
+          href="/viewProperty/Land-Plots"
+          icon={<Landmark className="w-10 h-10"/>}
+          label="Land / Plot"
+        />
+        <SubActionCard
+          href="/viewProperty/Residential"
+          icon={<Building2 className="w-10 h-10"/>}
+          label="Residential"
+        />
+        <SubActionCard
+          href="/viewProperty/Commercial"
+          icon={<Store className="w-10 h-10"/>}
+          label="Commercial"
+        />
+        <SubActionCard
+          href="/viewProperty//Hostel-PG"
+          icon={<Hotel className="w-10 h-10"/>}
+          label="PG / Hostel"
+        />
+      </div>
+
+      {/* === CTA Button (Sell / Rent) === */}
+      <Link
+        href="/property-upload"
+        className="group relative flex items-center justify-center gap-3 px-6 py-4 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-xl text-center shadow-md hover:shadow-xl transition-all duration-300 w-full max-w-xl"
       >
-        {/* Column 1 */}
-        <div className='flex flex-col gap-4'>
-          {/* Buy Property */}
-          <Link
-            href='/properties'
-            className='group relative overflow-hidden px-6 py-4 bg-gradient-to-r bg-[#2B7FFF] text-white text-sm sm:text-base rounded-xl text-center transition-all duration-300 hover:shadow-lg hover:from-blue-700 hover:to-blue-900'
-          >
-            <span className='relative z-10 font-medium'>Buy Property</span>
-            <div className='absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
-          </Link>
-
-          {/* Land/Plot */}
-          <Link
-            href='/properties?type=land'
-            className='group relative overflow-hidden px-6 py-3 bg-white text-gray-800 text-sm sm:text-base rounded-xl text-center transition-all duration-300 hover:shadow-md border-2 border-gray-200 hover:border-blue-400'
-          >
-            <span className='relative z-10 font-medium'>Land/Plot</span>
-            <div className='absolute inset-0 bg-gray-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
-          </Link>
-        </div>
-
-        {/* Column 2 */}
-        <div className='flex flex-col gap-4'>
-          {/* Rent Property */}
-          <Link
-            href='/properties'
-            className='group relative overflow-hidden px-6 py-4 bg-gradient-to-r bg-[#2B7FFF] text-white text-sm sm:text-base rounded-xl text-center transition-all duration-300 hover:shadow-lg '
-          >
-            <span className='relative z-10 font-medium'>Rent Property</span>
-            <div className='absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-900 opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
-          </Link>
-
-          {/* Residential */}
-          <Link
-            href='/properties?type=residential'
-            className='group relative overflow-hidden px-6 py-3 bg-white text-gray-800 text-sm sm:text-base rounded-xl text-center transition-all duration-300 hover:shadow-md border-2 border-gray-200 hover:border-blue-400'
-          >
-            <span className='relative z-10 font-medium'>Residential</span>
-            <div className='absolute inset-0 bg-gray-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
-          </Link>
-        </div>
-
-        {/* Commercial */}
-        <Link
-          href='/properties?type=commercial'
-          className='group relative overflow-hidden px-6 py-3 bg-white text-gray-800 text-sm sm:text-base rounded-xl text-center transition-all duration-300 hover:shadow-md border-2 border-gray-200 hover:border-blue-400'
-        >
-          <span className='relative z-10 font-medium'>Commercial</span>
-          <div className='absolute inset-0 bg-gray-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
-        </Link>
-
-        {/* PG/Hostel */}
-        <Link
-          href='/properties?type=hostel'
-          className='group relative overflow-hidden px-6 py-3 bg-white text-gray-800 text-sm sm:text-base rounded-xl text-center transition-all duration-300 hover:shadow-md border-2 border-gray-200 hover:border-blue-400'
-        >
-          <span className='relative z-10 font-medium'>PG/Hostel</span>
-          <div className='absolute inset-0 bg-gray-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
-        </Link>
-
-        {/* Sell or Rent - Special full width button */}
-        <Link
-          href='/property-upload'
-          className='group relative overflow-hidden col-span-2 px-6 py-4 bg-gradient-to-r bg-[#FDC700] text-white text-sm sm:text-base rounded-xl text-center transition-all duration-300 hover:shadow-xl '
-        >
-          <span className='relative z-10 font-semibold'>
-            Sell or Rent Your Property
-          </span>
-          <div className='absolute inset-0 bg-gradient-to-r  opacity-0 group-hover:opacity-100 transition-opacity duration-300'></div>
-          <div className='absolute -bottom-1 -right-1 w-4 h-4 bg-white rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-500'></div>
-        </Link>
-      </motion.div>
+        <UploadCloud className="w-5 h-5" />
+        <span>Sell or Rent Your Property</span>
+      </Link>
     </motion.section>
-  )
+  );
+}
+
+function MainActionCard({ href, icon, label, gradient }) {
+  return (
+    <Link
+      href={href}
+      className={`group relative flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r ${gradient} text-white font-semibold text-base sm:text-lg shadow-lg hover:scale-[1.03] transition-all duration-300`}
+    >
+      {icon}
+      <span>{label}</span>
+    </Link>
+  );
+}
+
+function SubActionCard({ href, icon, label }) {
+  return (
+    <Link
+      href={href}
+      className="group relative flex items-center justify-center gap-2 px-5 py-4 bg-white border border-gray-900 hover:border-black text-black rounded-xl text-sm sm:text-base font-medium transition-all duration-300 shadow-sm hover:shadow-md "
+    >
+      <div className="flex flex-col items-center">
+        <span className="text-yellow-900 mb-1">{icon}</span>
+        <span className="text-lg poppins-semibold">{label}</span>
+      </div>
+    </Link>
+  );
 }

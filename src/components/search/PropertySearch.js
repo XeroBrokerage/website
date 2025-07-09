@@ -49,7 +49,7 @@ export default function PropertySearch() {
   const [listingType, setListingType] = useState('Buy')
 
   return (
-    <div className='px-4 py-3 rounded-xl bg-white shadow-sm max-w-3xl mx-auto transition-all duration-300 hover:shadow-md'>
+    <div className='px-4 py-3 rounded-xl bg-white shadow-[0_0_35px_rgba(0,0,0,0.3)] max-w-3xl mx-auto transition-all duration-300 hover:shadow-[0_0_55px_rgba(0,0,0,0.3)]'>
       {/* Desktop Layout (unchanged) */}
       <div className='hidden sm:flex flex-row items-center gap-3'>
         {/* Search Input */}
@@ -59,7 +59,7 @@ export default function PropertySearch() {
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
             placeholder='Search by location, property...'
-            className='w-full px-4 py-3 text-sm font-medium bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-300 transition-all duration-200 placeholder-gray-400'
+            className='w-full px-4 py-3 text-sm font-medium bg-gray-100 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-300 transition-all duration-200 placeholder-gray-400'
           />
         </div>
 
@@ -68,7 +68,7 @@ export default function PropertySearch() {
           <select
             value={propertyType}
             onChange={e => setPropertyType(e.target.value)}
-            className='px-4 py-3 pr-8 text-sm font-medium bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-300 appearance-none cursor-pointer transition-all duration-200'
+            className='px-4 py-3 pr-8 text-sm font-medium bg-gray-100 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-300 appearance-none cursor-pointer transition-all duration-200'
           >
             <option value='Villa'>Villa</option>
             <option value='Lands and Plots'>Lands and Plots</option>
@@ -96,7 +96,7 @@ export default function PropertySearch() {
           <select
             value={listingType}
             onChange={e => setListingType(e.target.value)}
-            className='px-4 py-3 pr-8 text-sm font-medium bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-300 appearance-none cursor-pointer transition-all duration-200'
+            className='px-4 py-3 pr-8 text-sm font-medium bg-gray-100 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-300 appearance-none cursor-pointer transition-all duration-200'
           >
             <option value='Buy'>Buy</option>
             <option value='Rent'>Rent</option>
@@ -143,7 +143,7 @@ export default function PropertySearch() {
             value={searchTerm}
             onChange={e => setSearchTerm(e.target.value)}
             placeholder='Search by location, property...'
-            className='w-full px-4 py-3 text-sm font-medium bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-300 transition-all duration-200 placeholder-gray-400'
+            className='w-full px-4 py-3 text-sm font-medium bg-gray-100 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-300 transition-all duration-200 placeholder-gray-400'
           />
         </div>
 
@@ -154,7 +154,7 @@ export default function PropertySearch() {
             <select
               value={propertyType}
               onChange={e => setPropertyType(e.target.value)}
-              className='w-full px-3 py-2 text-sm font-medium bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-300 appearance-none cursor-pointer'
+              className='w-full px-3 py-2 text-sm font-medium bg-gray-100 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-300 appearance-none cursor-pointer'
             >
               <option value='Villa'>Villa</option>
               <option value='Lands and Plots'>Lands & Plots</option>
@@ -182,7 +182,7 @@ export default function PropertySearch() {
             <select
               value={listingType}
               onChange={e => setListingType(e.target.value)}
-              className='w-full px-3 py-2 text-sm font-medium bg-gray-50 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-300 appearance-none cursor-pointer'
+              className='w-full px-3 py-2 text-sm font-medium bg-gray-100 rounded-lg focus:outline-none focus:ring-1 focus:ring-amber-300 appearance-none cursor-pointer'
             >
               <option value='Buy'>Buy</option>
               <option value='Rent'>Rent</option>

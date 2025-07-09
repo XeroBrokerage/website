@@ -1,6 +1,6 @@
 'use client'
 
-import PropertyCard from "@/components/property/PropertyCard";
+import PropertyCard from "@/components/property/LandPlotCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
@@ -9,7 +9,7 @@ export default function FeaturedListings() {
   const [properties , setProperties] = useState([])
   
   useEffect(() => {
-    axios.get("/api/properties").then(res => setProperties(res.data.listings) )
+    axios.get("/api/properties/plot").then(res => setProperties(res.data.listings) )
     
   }, [])
 
@@ -21,3 +21,4 @@ export default function FeaturedListings() {
     </div>
   );
 }
+
