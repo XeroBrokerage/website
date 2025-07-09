@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 const WhatsAppButton = () => {
   const [isMounted, setIsMounted] = useState(false)
-  const phoneNumber = '9300606666'
+  const phoneNumber = '919300606666'
   const message = 'Hello! I have a question.'
   const hoverMessage = 'Chat with us!'
 
