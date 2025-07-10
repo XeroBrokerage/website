@@ -138,10 +138,10 @@ const ServiceCard = ({ title, description, svgComponent }) => {
 
       {/* Service Details */}
       <div className='text-center'>
-        <h3 className='font-serif font-bold text-lg md:text-xl lg:text-2xl text-gray-600 mb-1 tracking-wider'>
+        <h3 className='font-serif font-bold text-sm md:text-base lg:text-xl text-gray-600 mb-1 md:mb-2 tracking-tight md:tracking-wider line-clamp-2'>
           {title}
         </h3>
-        <p className='font-light text-xs md:text-sm text-gray-600 px-2 md:px-4 leading-4 md:leading-5'>
+        <p className='font-light text-[0.7rem] md:text-xs lg:text-sm text-gray-600 px-1 md:px-3 leading-4 md:leading-5 line-clamp-4'>
           {description}
         </p>
       </div>
