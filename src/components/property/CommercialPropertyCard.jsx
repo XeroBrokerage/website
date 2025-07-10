@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FiMapPin } from "react-icons/fi"; 
+import { FiMapPin } from "react-icons/fi";
 import placeholderImage from "@/assets/placeholder-house.png";
 
 export default function CommercialPropertyCard({ property }) {
   return (
-    <div className="flex flex-col justify-between bg-white/90 backdrop-blur-xs border border-gray-200/50 shadow-sm hover:shadow-md transition-all rounded-xl overflow-hidden w-full max-w-[450px] mx-auto">
+    <div className="flex flex-col justify-between bg-white/90 backdrop-blur-xs border border-gray-200/50 shadow-sm hover:shadow-md transition-all rounded-xl overflow-hidden w-full max-w-[450px] mx-auto h-full min-h-[450px]">
       {/* Image */}
       <figure className="relative w-full h-[240px] overflow-hidden group">
         <Image
@@ -25,7 +25,8 @@ export default function CommercialPropertyCard({ property }) {
           </h3>
 
           <h4 className="text-base poppins-semibold tracking-wide text-gray-800">
-            {property.area} sq ft {property.propertyType} for {property.advertiseAs}
+            {property.area} sq ft {property.propertyType} for{" "}
+            {property.advertiseAs}
           </h4>
 
           <p className="text-sm text-gray-700 flex items-center gap-1 line-clamp-1">

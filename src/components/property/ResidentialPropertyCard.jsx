@@ -5,14 +5,15 @@ import placeholderImage from "@/assets/placeholder-house.png";
 
 export default function PropertyCard({ property }) {
   return (
-    <div className="flex flex-col justify-between bg-white/90 backdrop-blur-xs border border-gray-200/50 shadow-sm hover:shadow-md transition-all rounded-xl overflow-hidden w-full max-w-[450px] mx-auto">
+    <div className="flex flex-col justify-between bg-white/90 backdrop-blur-xs border border-gray-200/50 shadow-sm hover:shadow-md transition-all rounded-xl overflow-hidden w-full max-w-[450px] mx-auto h-full min-h-[450px]">
+
       {/* Image */}
       <figure className="relative w-full h-[240px] overflow-hidden group">
         <Image
           alt="Property Image"
           src={property.images || placeholderImage}
           fill
-          className="object-contain"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </figure>
@@ -30,7 +31,7 @@ export default function PropertyCard({ property }) {
 
           <p className="text-sm text-gray-700 flex items-center gap-1 line-clamp-1">
             <FiMapPin className="text-red-500 text-base shrink-0" />
-            <span className="truncate">{property.address}</span>
+            <span className="r">{property.address}</span>
           </p>
 
           <div className="flex items-center gap-2 text-xs text-gray-500 mt-1">

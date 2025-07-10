@@ -3,17 +3,16 @@
 import React, { useState } from "react";
 import ResidentialListing from "@/app/viewProperty/Residential/page";
 import CommercialListing from "@/app/viewProperty/Commercial/page";
-import HostelListing from "@/app/viewProperty/Hostel-PG/page";
-// import LandListing from "@/app/viewProperty/Land-Plots/page";
+import LandListing from "@/app/viewProperty/Land-Plots/page";
 
 const TABS = [
   {
     label: "Residential",
-    component: <ResidentialListing advertiseAs="Rent" />,
+    component: <ResidentialListing advertiseAs="Sell" />,
   },
-  { label: "Commercial", component: <CommercialListing advertiseAs="Rent" /> },
-  { label: "Hostel / PG", component: <HostelListing /> },
-  // { label: "Land / Plots", component: <LandListing /> },
+  { label: "Commercial", component: <CommercialListing advertiseAs="Sell" /> },
+
+  { label: "Land / Plots", component: <LandListing /> },
 ];
 
 const Page = () => {
@@ -26,10 +25,9 @@ const Page = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <h1 className="text-4xl text-center poppins-bold mb-10">
-        Browse Verified Properties Listed for Rent
+        Browse Verified Properties Listed for Sell
       </h1>
 
-      {/* Tabs */}
       <div className="flex justify-center gap-4 mb-8 flex-wrap">
         {TABS.map((tab) => (
           <button

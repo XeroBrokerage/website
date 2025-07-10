@@ -38,13 +38,13 @@ export default function BuyOrSell() {
       {/* === Top Action Buttons (Buy / Rent) === */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10 w-full max-w-3xl">
         <MainActionCard
-          href="/viewProperty/Land-Plots"
+          href="/properties/buyProperty"
           icon={<Home className="w-5 h-5" />}
           label="Buy Property"
           gradient="from-black to-neutral-800"
         />
         <MainActionCard
-          href="/properties"
+          href="/properties/rentProperty"
           icon={<BedDouble className="w-5 h-5" />}
           label="Rent Property"
           gradient="from-black to-neutral-800"

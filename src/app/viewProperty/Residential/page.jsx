@@ -4,7 +4,7 @@ import PropertyCard from "@/components/property/ResidentialPropertyCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-export default function FeaturedListings() {
+export default function FeaturedListings({ advertiseAs }) {
   const [properties, setProperties] = useState([]);
 
   useEffect(() => {
@@ -13,18 +13,26 @@ export default function FeaturedListings() {
       .catch(err => console.error("Failed to fetch properties:", err));
   }, []);
 
+  // 🔍 Filter if advertiseAs is provided
+  const filteredProperties = advertiseAs
+    ? properties.filter((property) => property.advertiseAs === advertiseAs)
+    : properties;
+
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col items-center">
-      <h2 className="text-2xl sm:text-4xl poppins-bold mb-6">Featured Residential Properties </h2>
-      {properties.length > 0 ? (
+      <h2 className="text-2xl sm:text-4xl poppins-bold mb-6">
+        Featured Residential Properties
+      </h2>
+
+      {filteredProperties.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {properties.map((property) => (
+          {filteredProperties.map((property) => (
             <PropertyCard key={property._id} property={property} />
           ))}
         </div>
       ) : (
         <div className="text-center text-gray-500 text-lg py-12">
-          No property found. Try again later!
+          No {advertiseAs ? `"${advertiseAs}"` : ""} properties found. Try again later!
         </div>
       )}
     </section>

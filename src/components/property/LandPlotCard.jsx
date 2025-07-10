@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FiMapPin } from "react-icons/fi"; 
+import { FiMapPin } from "react-icons/fi";
 import placeholderImage from "@/assets/placeholder-house.png";
 
 export default function LandPlotPropertyCard({ property }) {
   return (
-    <div className="flex flex-col justify-between bg-white/90 backdrop-blur-xs border border-gray-200/50 shadow-sm hover:shadow-md transition-all rounded-xl overflow-hidden w-full max-w-[450px] mx-auto">
+    <div className="flex flex-col justify-between bg-white/90 backdrop-blur-xs border border-gray-200/50 shadow-sm hover:shadow-md transition-all rounded-xl overflow-hidden w-full max-w-[450px] mx-auto h-full min-h-[450px]">
       {/* Image */}
       <figure className="relative w-full h-[240px] overflow-hidden group">
         <Image

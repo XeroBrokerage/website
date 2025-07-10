@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import ResidentialListing from "@/app/viewProperty/Residential/page";
 import CommercialListing from "@/app/viewProperty/Commercial/page";
 import HostelListing from "@/app/viewProperty/Hostel-PG/page";
-// import LandListing from "@/app/viewProperty/Land-Plots/page";
+
 
 const TABS = [
   {
@@ -13,7 +13,6 @@ const TABS = [
   },
   { label: "Commercial", component: <CommercialListing advertiseAs="Rent" /> },
   { label: "Hostel / PG", component: <HostelListing /> },
-  // { label: "Land / Plots", component: <LandListing /> },
 ];
 
 const Page = () => {
