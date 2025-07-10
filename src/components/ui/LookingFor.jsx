@@ -107,7 +107,7 @@ function SubActionCard({ href, icon, label }) {
     >
       <div className="flex flex-col items-center">
         <span className="text-yellow-900 mb-1">{icon}</span>
-        <span className="text-lg poppins-semibold">{label}</span>
+        <span className="text-lg poppins-semibold whitespace-nowrap">{label}</span>
       </div>
     </Link>
   );
