@@ -1,20 +1,21 @@
 'use client'
 import React from 'react'
+// import myImage from '@assets/myImage.png';
 
 const DevelopersPage = () => {
   const developers = [
     {
       id: 1,
-      name: 'John Doe',
+      name: 'Yash Rawalkar',
       role: 'Frontend Developer',
-      bio: 'Specialized in React and UI/UX design with 5 years of experience building responsive web applications. Passionate about creating intuitive user experiences and pixel-perfect interfaces.',
-      image: '/images/developer1.jpg', // Replace with your image path
+      bio: 'Specialized in React and UI/UX design with 2 years of experience building responsive web applications. Passionate about creating intuitive user experiences and pixel-perfect interfaces.',
+    image:"",
       skills: ['React', 'TypeScript', 'Tailwind CSS', 'UI/UX'],
       links: {
-        github: 'https://github.com/johndoe',
-        linkedin: 'https://linkedin.com/in/johndoe',
-        portfolio: 'https://johndoe.dev',
-        email: 'john@example.com',
+        github: 'https://github.com/yrCodem',
+        linkedin: 'https://www.linkedin.com/in/therealyash',
+        // portfolio: 'https://johndoe.dev',
+        email: 'yashrawalkar04@gmail.com',
       },
     },
     {
@@ -22,7 +23,7 @@ const DevelopersPage = () => {
       name: 'Jane Smith',
       role: 'Backend Developer',
       bio: 'Expert in Node.js and database architecture with a focus on scalable and secure backend systems. Has extensive experience in API design and cloud infrastructure management.',
-      image: '/images/developer2.jpg', // Replace with your image path
+    //   image: '/images/developer2.jpg', // Replace with your image path
       skills: ['Node.js', 'Python', 'AWS', 'Database Design'],
       links: {
         github: 'https://github.com/janesmith',
