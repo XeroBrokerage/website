@@ -58,8 +58,7 @@ const AboutUsPage = () => {
             </h1>
             <div className='w-24 h-1 bg-blue-500 mx-auto mb-6'></div>
             <p className='text-xl text-gray-600 max-w-3xl mx-auto'>
-              Transforming Raipur's Real Estate with transparency and zero
-              brokerage
+        Central India's most trusted & customer first Real Estate powerhouse
             </p>
           </motion.div>
         </div>
@@ -96,28 +95,6 @@ const AboutUsPage = () => {
                   </div>
                 </div>
               </div>
-              {/* <div className='bg-blue-100 rounded-2xl p-8 shadow-lg'>
-                <div className='aspect-w-16 aspect-h-9 bg-gray-200 rounded-xl overflow-hidden'>
-                  <img
-                    src='../../assets/logo.jpg'
-                    alt='Raipur real estate'
-                    className='w-full h-full object-cover'
-                  />
-                </div>
-                <div className='absolute -bottom-6 -right-6 bg-white p-4 rounded-xl shadow-md border border-gray-100'>
-                  <div className='flex items-center'>
-                    <div className='bg-blue-100 p-3 rounded-full mr-3'>
-                      <FiHome className='text-blue-600' />
-                    </div>
-                    <div>
-                      <p className='font-bold text-gray-800'>25+ Years</p>
-                      <p className='text-sm text-gray-500'>
-                        In Raipur Real Estate
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
             </motion.div>
 
             <motion.div
@@ -133,27 +110,22 @@ const AboutUsPage = () => {
                 <p>
                   With over{' '}
                   <span className='font-semibold text-blue-600'>
-                    25 years of experience
+                   6+ years of experience,
                   </span>{' '}
-                  in Raipur's real estate market, Xero Brokerage (formerly known
-                  as Satguru Real Estate) has built a solid reputation for
-                  trust, consistency, and client-focused service.
+                  we’ve redefined how people buy, build, and beautify their dream spaces. At Xero, we believe buying a home shouldn’t come with hidden costs or hassles — which is why we proudly offer plots, homes, and flats at <b className='text-green-600'>ZERO</b> brokerage.
                 </p>
                 <p>
-                  From our early days to now, our mission has remained the same:
-                  to make property transactions{' '}
-                  <span className='font-semibold'>
+                  But we don’t stop there. We are a one-stop solution for everything real estate — whether it’s construction starting at just <b>₹799/sq.ft</b>, interior design that brings your vision to life, or home loans and property financing tailored to your need{' '}
+                  {/* <span className='font-semibold'>
                     simple, fair, and value-driven
-                  </span>
+                  </span> */}
                   .
                 </p>
                 <p>
-                  As the market evolved, so did we. Today, under the name Xero
-                  Brokerage, we've adopted a{' '}
-                  <span className='font-semibold text-green-600'>
+                  Whether you're a first-time homebuyer, a savvy investor, or someone dreaming of building from the ground up, Xero Brokerage is built around you — with transparent pricing, dedicated support, and expert guidance at every step.{' '}
+                  {/* <span className='font-semibold text-green-600'>
                     Zero-Brokerage Model
-                  </span>
-                  — designed to reduce the cost burden for buyers and sellers.
+                  </span> */}
                 </p>
               </div>
             </motion.div>
