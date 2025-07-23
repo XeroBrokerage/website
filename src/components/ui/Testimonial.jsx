@@ -49,7 +49,7 @@ const testimonials = [
   },
   {
     id: 6,
-    name: 'Arjun Rao',
+    name: 'Ram Darbar',
     role: 'Owner',
     image: '/arjun.svg',
     quote:
