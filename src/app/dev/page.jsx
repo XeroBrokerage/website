@@ -20,7 +20,7 @@ const DevelopersPage = () => {
     },
     {
       id: 2,
-      name: 'Jane Smith',
+      name: 'Umair Malik',
       role: 'Backend Developer',
       bio: 'Expert in Node.js and database architecture with a focus on scalable and secure backend systems. Has extensive experience in API design and cloud infrastructure management.',
     //   image: '/images/developer2.jpg', // Replace with your image path
