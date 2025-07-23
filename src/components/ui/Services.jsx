@@ -92,39 +92,39 @@ const LegalSVG = () => (
   </svg>
 )
 
-const MaterialsSVG = () => (
-  <svg
-    xmlns='http://www.w3.org/2000/svg'
-    viewBox='0 0 24 24'
-    fill='none'
-    className='w-10 h-10 md:w-14 md:h-14 lg:w-20 lg:h-20'
-  >
-    <path
-      d='M17.18 18c2.4 0 3-1.35 3-3V9c0-1.65-.6-3-3-3s-3 1.35-3 3v6c0 1.65.6 3 3 3ZM3.82 11.3V9c0-1.65.6-3 3-3s3 1.35 3 3v6c0 1.65-.6 3-3 3s-3-1.35-3-3M9.82 12h4.36M22.5 14.5v-5M1.5 14.5v-5'
-      stroke='#FF8A65'
-      strokeWidth='1.5'
-      strokeLinecap='round'
-      strokeLinejoin='round'
-    ></path>
-  </svg>
-)
+// const MaterialsSVG = () => (
+//   <svg
+//     xmlns='http://www.w3.org/2000/svg'
+//     viewBox='0 0 24 24'
+//     fill='none'
+//     className='w-10 h-10 md:w-14 md:h-14 lg:w-20 lg:h-20'
+//   >
+//     <path
+//       d='M17.18 18c2.4 0 3-1.35 3-3V9c0-1.65-.6-3-3-3s-3 1.35-3 3v6c0 1.65.6 3 3 3ZM3.82 11.3V9c0-1.65.6-3 3-3s3 1.35 3 3v6c0 1.65-.6 3-3 3s-3-1.35-3-3M9.82 12h4.36M22.5 14.5v-5M1.5 14.5v-5'
+//       stroke='#FF8A65'
+//       strokeWidth='1.5'
+//       strokeLinecap='round'
+//       strokeLinejoin='round'
+//     ></path>
+//   </svg>
+// )
 
-const HardwareSVG = () => (
-  <svg
-    xmlns='http://www.w3.org/2000/svg'
-    viewBox='0 0 24 24'
-    fill='none'
-    className='w-10 h-10 md:w-14 md:h-14 lg:w-20 lg:h-20'
-  >
-    <path
-      d='M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z'
-      stroke='#FF8A65'
-      strokeWidth='1.5'
-      strokeLinecap='round'
-      strokeLinejoin='round'
-    ></path>
-  </svg>
-)
+// const HardwareSVG = () => (
+//   <svg
+//     xmlns='http://www.w3.org/2000/svg'
+//     viewBox='0 0 24 24'
+//     fill='none'
+//     className='w-10 h-10 md:w-14 md:h-14 lg:w-20 lg:h-20'
+//   >
+//     <path
+//       d='M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z'
+//       stroke='#FF8A65'
+//       strokeWidth='1.5'
+//       strokeLinecap='round'
+//       strokeLinejoin='round'
+//     ></path>
+//   </svg>
+// )
 
 const ServiceCard = ({ title, description, svgComponent }) => {
   return (
@@ -182,18 +182,18 @@ const ServiceCardCollection = () => {
         'Sign Smarter, Not Harder – Zero Brokerage, Zero Hassle Legal Agreements!',
       svgComponent: <LegalSVG />,
     },
-    {
-      title: 'Raw Materials',
-      description:
-        'Source Direct, Save Direct – Zero Brokerage Properties Straight from Raw Material!',
-      svgComponent: <MaterialsSVG />,
-    },
-    {
-      title: 'Hardware',
-      description:
-        'Unlock Prime Properties with Zero Brokerage – Your Dream Home, Hardware Strong!',
-      svgComponent: <HardwareSVG />,
-    },
+    // {
+    //   title: 'Raw Materials',
+    //   description:
+    //     'Source Direct, Save Direct – Zero Brokerage Properties Straight from Raw Material!',
+    //   svgComponent: <MaterialsSVG />,
+    // },
+    // {
+    //   title: 'Hardware',
+    //   description:
+    //     'Unlock Prime Properties with Zero Brokerage – Your Dream Home, Hardware Strong!',
+    //   svgComponent: <HardwareSVG />,
+    // },
   ]
 
   return (
@@ -203,7 +203,7 @@ const ServiceCardCollection = () => {
           Our Services
         </h2>
 
-        <div className='grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8'>
+        <div className='grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-2 gap-4 md:gap-6 lg:gap-8'>
           {services.map((service, index) => (
             <ServiceCard
               key={index}
