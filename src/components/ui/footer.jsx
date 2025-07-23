@@ -90,7 +90,7 @@ const Footer = () => {
             <ul className='space-y-1'>
               <li>
                 <Link href='/dev' className='hover:text-blue-300'>
-                  Developers Page
+                  Developer's Page
                 </Link>
               </li>
               {/* <li>
