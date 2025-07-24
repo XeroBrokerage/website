@@ -19,7 +19,7 @@ const AboutUsPage = () => {
     {
       title: 'Legacy of Trust',
       description:
-        "Built over 25 years as Satguru Real Estate in Raipur's competitive market",
+        "Built over 6 years in Raipur's competitive market",
       icon: <FiAward className='text-blue-500 text-2xl' />,
     },
     {
@@ -88,7 +88,7 @@ const AboutUsPage = () => {
                     <FiHome className='text-blue-600' />
                   </div>
                   <div>
-                    <p className='font-bold text-gray-800'>25+ Years</p>
+                    <p className='font-bold text-gray-800'>6+ Years</p>
                     <p className='text-sm text-gray-500'>
                       In Raipur Real Estate
                     </p>
