@@ -498,7 +498,7 @@ const ReportProblemPage = () => {
                     </span>
                     We'll contact you if we need more information
                   </li>
-                  <li className='flex items-start'>
+                  {/* <li className='flex items-start'>
                     <span className='inline-block bg-blue-100 text-blue-800 rounded-full p-1 mr-3'>
                       <svg
                         className='w-3 h-3'
@@ -513,7 +513,7 @@ const ReportProblemPage = () => {
                       </svg>
                     </span>
                     We'll notify you when the issue is resolved
-                  </li>
+                  </li> */}
                   <li className='flex items-start'>
                     <span className='inline-block bg-blue-100 text-blue-800 rounded-full p-1 mr-3'>
                       <svg
