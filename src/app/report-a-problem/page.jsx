@@ -99,7 +99,6 @@ const ReportProblemPage = () => {
           date: new Date().toLocaleDateString(),
           time: new Date().toLocaleTimeString(),
           websiteLink: 'https://xerobrokerage.in',
-          dashboardLink: 'https://yourwebsite.com/admin/issues'
         }
       )
 

@@ -153,7 +153,7 @@ const AboutUsPage = () => {
             <div className='hidden md:block absolute left-1/2 h-full w-0.5 bg-blue-200 transform -translate-x-1/2'></div>
             {/* Timeline items */}
             <div className='space-y-12 md:space-y-0'>
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -174,9 +174,9 @@ const AboutUsPage = () => {
                   <div className='w-6 h-6 rounded-full bg-blue-500 border-4 border-white shadow-md'></div>
                 </div>
                 <div className='md:w-5/12'></div>
-              </motion.div>
+              </motion.div> */}
 
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -198,7 +198,7 @@ const AboutUsPage = () => {
                   </div>
                 </div>
               </motion.div>
-
+ */}
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
