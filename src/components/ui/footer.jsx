@@ -88,16 +88,6 @@ const Footer = () => {
                   Developer's Page
                 </Link>
               </li>
-              {/* <li>
-                <a rel='noopener noreferrer' href='#'>
-                  Documentation
-                </a>
-              </li>
-              <li>
-                <a rel='noopener noreferrer' href='#'>
-                  Guides
-                </a>
-              </li> */}
             </ul>
           </div>
           <div className='space-y-3'>

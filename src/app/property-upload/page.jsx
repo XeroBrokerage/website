@@ -23,7 +23,7 @@ export default function PropertyUploadPage() {
   }, [isAuthenticated, router]);
 
   return (
-    <div className="flex flex-col items-center min-h-fit py-12 px-4 sm:px-6 lg:px-8 mx-auto max-w-[98vw]">
+    <div className="flex flex-col items-center min-h-fit py-12 px-4 sm:px-6 lg:px-8 mx-auto ">
       <div className="text-center mb-10">
         <h1 className="text-4xl font-bold text-gray-900 mb-3">
           List Your Property
@@ -36,7 +36,7 @@ export default function PropertyUploadPage() {
         <Link href="/property-upload/residential">
           <button
             type="button"
-            className="flex flex-col items-center bg-black/10 border rounded-xl justify-between px-4 py-6 sm:py-8 md:py-10 w-full md:w-[15vw] h-full"
+            className="flex flex-col items-center bg-black/10 border rounded-xl justify-between px-4 py-6 sm:py-8 md:py-10 w-full md:w-[10vw] h-full"
           >
             <img
               src="/house.svg"
@@ -50,7 +50,7 @@ export default function PropertyUploadPage() {
         <Link href="/property-upload/commercial">
           <button
             type="button"
-            className="flex flex-col items-center bg-black/10 border rounded-xl justify-center px-4 py-6 sm:py-8 md:py-10 w-full md:w-[15vw] h-full"
+            className="flex flex-col items-center bg-black/10 border rounded-xl justify-center px-4 py-6 sm:py-8 md:py-10 w-full md:w-[10vw] h-full"
           >
             <img
               src="/shop.svg"
@@ -64,7 +64,7 @@ export default function PropertyUploadPage() {
         <Link href="/property-upload/land-plot">
           <button
             type="button"
-            className="flex flex-col items-center bg-black/10 border rounded-xl justify-center px-4 py-6 sm:py-8 md:py-10 w-full md:w-[15vw] h-full"
+            className="flex flex-col items-center bg-black/10 border rounded-xl justify-center px-4 py-6 sm:py-8 md:py-10 w-full md:w-[10vw] h-full"
           >
             <img
               src="/land.svg"
@@ -78,7 +78,7 @@ export default function PropertyUploadPage() {
         <Link href="/property-upload/hostel-pg">
           <button
             type="button"
-            className="flex flex-col items-center bg-black/10 border rounded-xl justify-center px-4 py-6 sm:py-8 md:py-10 w-full md:w-[15vw] h-full"
+            className="flex flex-col items-center bg-black/10 border rounded-xl justify-center px-4 py-6 sm:py-8 md:py-10 w-full md:w-[10vw] h-full"
           >
             <img
               src="/hostel.svg"
