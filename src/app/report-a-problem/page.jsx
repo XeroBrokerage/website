@@ -10,6 +10,7 @@ import {
   FiFileText,
   FiCheckCircle,
 } from 'react-icons/fi'
+import emailjs from '@emailjs/browser'
 
 const ReportProblemPage = () => {
   const [formData, setFormData] = useState({
@@ -24,10 +25,19 @@ const ReportProblemPage = () => {
 
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const [isSending, setIsSending] = useState(false)
+
+  // Initialize EmailJS with your User ID
+  emailjs.init('hA2oG5Ijiiy7AMdsp')
 
   const validateEmail = email => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     return re.test(email)
+  }
+
+  const validatePhone = phone => {
+    const digitsOnly = phone.replace(/\D/g, '')
+    return digitsOnly.length === 10
   }
 
   const handleChange = e => {
@@ -43,14 +53,6 @@ const ReportProblemPage = () => {
         [name]: null,
       }))
     }
-  }
-
-  const validatePhone = phone => {
-    // Remove all non-digit characters
-    const digitsOnly = phone.replace(/\D/g, '')
-
-    // Check if it's exactly 10 digits (excluding country code)
-    return digitsOnly.length === 10
   }
 
   const validateForm = () => {
@@ -75,11 +77,43 @@ const ReportProblemPage = () => {
     return Object.keys(newErrors).length === 0
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (validateForm()) {
-      console.log('Problem reported:', formData)
+    if (!validateForm()) return
+
+    setIsSending(true)
+    setErrors({})
+
+    try {
+      const response = await emailjs.send(
+        'service_j81bdi1',  // Service ID
+        'template_cgy886e', // Template ID
+        {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || 'Not provided',
+          serviceAffected: formData.serviceAffected,
+          issueType: formData.issueType,
+          problemDescription: formData.problemDescription,
+          urgency: formData.urgency,
+          date: new Date().toLocaleDateString(),
+          time: new Date().toLocaleTimeString(),
+          websiteLink: 'https://xerobrokerage.in',
+        }
+      )
+
+      if (response.status !== 200) {
+        throw new Error(`EmailJS responded with status ${response.status}`)
+      }
+
       setSubmitted(true)
+    } catch (error) {
+      console.error('Failed to send problem report:', error)
+      setErrors({
+        submit: error.message || 'Failed to submit problem report. Please try again later.'
+      })
+    } finally {
+      setIsSending(false)
     }
   }
 
@@ -369,14 +403,35 @@ const ReportProblemPage = () => {
                     </p>
                   </div>
 
+                  {errors.submit && (
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className='text-red-500 text-sm text-center'
+                    >
+                      {errors.submit}
+                    </motion.p>
+                  )}
+
                   <div className='pt-4'>
                     <motion.button
                       type='submit'
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
-                      className='w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 shadow-md'
+                      className='w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-bold py-3 px-4 rounded-lg transition-all duration-300 shadow-md flex items-center justify-center'
+                      disabled={isSending}
                     >
-                      Submit Problem Report
+                      {isSending ? (
+                        <>
+                          <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          Submitting...
+                        </>
+                      ) : (
+                        'Submit Problem Report'
+                      )}
                     </motion.button>
                   </div>
                 </motion.form>
@@ -442,7 +497,7 @@ const ReportProblemPage = () => {
                     </span>
                     We'll contact you if we need more information
                   </li>
-                  <li className='flex items-start'>
+                  {/* <li className='flex items-start'>
                     <span className='inline-block bg-blue-100 text-blue-800 rounded-full p-1 mr-3'>
                       <svg
                         className='w-3 h-3'
@@ -457,7 +512,7 @@ const ReportProblemPage = () => {
                       </svg>
                     </span>
                     We'll notify you when the issue is resolved
-                  </li>
+                  </li> */}
                   <li className='flex items-start'>
                     <span className='inline-block bg-blue-100 text-blue-800 rounded-full p-1 mr-3'>
                       <svg

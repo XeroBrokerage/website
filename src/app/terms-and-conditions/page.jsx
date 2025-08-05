@@ -49,10 +49,6 @@ export default function TermsAndConditions() {
           <div className='space-y-4 pl-14'>
             <div className='flex items-start'>
               <FiAlertCircle className='text-blue-500 mr-3 mt-1 flex-shrink-0' />
-              <p>We're not liable for any frauds or misrepresentations</p>
-            </div>
-            <div className='flex items-start'>
-              <FiAlertCircle className='text-blue-500 mr-3 mt-1 flex-shrink-0' />
               <p>We act solely as a platform connecting buyers and sellers</p>
             </div>
             <div className='flex items-start'>
@@ -68,6 +64,10 @@ export default function TermsAndConditions() {
             <div className='flex items-start'>
               <FiAlertCircle className='text-blue-500 mr-3 mt-1 flex-shrink-0' />
               <p>Users must be at least 18 years old to use our services</p>
+            </div>
+            <div className='flex items-start'>
+              <FiAlertCircle className='text-blue-500 mr-3 mt-1 flex-shrink-0' />
+              <p>We're not responsible for any frauds or misrepresentations</p>
             </div>
           </div>
         </section>
@@ -117,13 +117,13 @@ export default function TermsAndConditions() {
               </h3>
               <ul className='space-y-3 list-disc pl-5 text-gray-600'>
                 <li>
-                  Zero Brokerage may verify your listing through calls, site
-                  visits, or document checks
+                  XeroBrokerage may verify your listing through calls, site
+                  visits, or document checks.
                 </li>
                 <li>
-                  Fake or misleading listings will be removed without notice
+                  Fake or misleading listings will be removed without notice.
                 </li>
-                <li>We may require proof of ownership or authorization</li>
+                <li>We may require proof of ownership or authorization.</li>
               </ul>
             </div>
 

@@ -51,11 +51,20 @@ const landPlot = () => {
     }
   }, [formData.description]);
 
-  const formatCurrency = (e) => {
-    let value = e.target.value.replace(/\D/g, "");
-    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    e.target.value = value;
-  };
+const formatCurrency = (e) => {
+  let value = e.target.value.replace(/\D/g, "");
+  value = value.replace(/^0+/, '');
+  if (value === '') value = '0';
+
+  let lastThree = value.substring(value.length - 3);
+  let otherNumbers = value.substring(0, value.length - 3);
+  if (otherNumbers !== '') {
+    lastThree = ',' + lastThree;
+  }
+  let result = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+
+  e.target.value = result;
+};
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -88,8 +97,8 @@ const landPlot = () => {
           headers: {
             "Content-Type": "application/json",
           },
-         
-          
+
+
           body: JSON.stringify({
             userId: user.id,
             propertyId: data.property._id,

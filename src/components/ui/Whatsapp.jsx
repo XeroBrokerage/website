@@ -35,7 +35,6 @@ const WhatsAppButton = () => {
   )
 }
 
-// Styled components with deterministic class names
 const FloatingContainer = styled.div`
   position: fixed;
   bottom: 30px;
@@ -67,6 +66,16 @@ const FloatingButton = styled.div`
 
   &:active {
     transform: scale(0.95);
+  }
+
+  @media (max-width: 768px) {
+    width: 50px;
+    height: 50px;
+  }
+
+  @media (max-width: 480px) {
+    width: 45px;
+    height: 45px;
   }
 `
 

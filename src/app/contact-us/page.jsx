@@ -1,13 +1,8 @@
 'use client'
 import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import {
-  FiMail,
-  FiPhone,
-  FiMapPin,
-  FiSend,
-  FiCheckCircle,
-} from 'react-icons/fi'
+import { FiMail, FiPhone, FiMapPin, FiSend, FiCheckCircle } from 'react-icons/fi'
+import emailjs from '@emailjs/browser'
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -17,21 +12,36 @@ const ContactPage = () => {
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState(null)
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault()
-    setSubmitted(true)
-    // Here you would typically send the data to your backend
-    console.log('Form submitted:', formData)
+    setError(null)
+
+    // Send email via EmailJS
+    emailjs.send(
+      'service_xhrn7c2', // EmailJS service ID
+      'template_6oiky0r', // EmailJS template ID
+      formData,
+      'SvIIntMeP5IlnOZg-' // EmailJS public key
+    )
+    .then((response) => {
+      console.log('Email sent successfully!', response.status, response.text)
+      setSubmitted(true)
+    })
+    .catch((err) => {
+      console.error('Failed to send email:', err)
+      setError('Failed to send message. Please try again later.')
+    })
   }
 
   return (
-    <div className=' py-12 px-4 sm:px-6 lg:px-8 '>
+    <div className='py-12 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-7xl mx-auto'>
         {/* Header */}
         <motion.div
@@ -62,6 +72,11 @@ const ContactPage = () => {
                   <h2 className='text-2xl font-semibold text-black mb-6'>
                     Send us a message
                   </h2>
+                  {error && (
+                    <div className='mb-4 p-3 bg-red-100 text-red-700 rounded-lg'>
+                      {error}
+                    </div>
+                  )}
                   <form onSubmit={handleSubmit} className='space-y-6'>
                     <div>
                       <label
@@ -95,7 +110,7 @@ const ContactPage = () => {
                         name='email'
                         value={formData.email}
                         onChange={handleChange}
-                        className='block w-full px-4 py-3 rounded-lg  bg-[#F2F1EF]'
+                        className='block w-full px-4 py-3 rounded-lg bg-[#F2F1EF]'
                         placeholder='your@email.com'
                         required
                       />
@@ -104,7 +119,7 @@ const ContactPage = () => {
                     <div>
                       <label
                         htmlFor='phone'
-                        className='block text-sm font-medium text-black mb-1 '
+                        className='block text-sm font-medium text-black mb-1'
                       >
                         Phone Number
                       </label>
@@ -114,7 +129,7 @@ const ContactPage = () => {
                         name='phone'
                         value={formData.phone}
                         onChange={handleChange}
-                        className='block w-full px-4 py-3 rounded-lg  bg-[#F2F1EF]'
+                        className='block w-full px-4 py-3 rounded-lg bg-[#F2F1EF]'
                         placeholder='+91 9876543210'
                       />
                     </div>
@@ -132,7 +147,7 @@ const ContactPage = () => {
                         rows={4}
                         value={formData.message}
                         onChange={handleChange}
-                        className='block w-full px-4 py-3 rounded-lg  bg-[#F2F1EF]'
+                        className='block w-full px-4 py-3 rounded-lg bg-[#F2F1EF]'
                         placeholder='How can we help you?'
                         required
                       ></textarea>
@@ -166,7 +181,15 @@ const ContactPage = () => {
                     contact you shortly.
                   </p>
                   <motion.button
-                    onClick={() => setSubmitted(false)}
+                    onClick={() => {
+                      setSubmitted(false)
+                      setFormData({
+                        name: '',
+                        email: '',
+                        phone: '',
+                        message: '',
+                      })
+                    }}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     className='inline-flex items-center px-6 py-2 rounded-md shadow-sm text-white bg-black/90 hover:bg-black'
@@ -178,7 +201,7 @@ const ContactPage = () => {
             </div>
           </motion.div>
 
-          {/* Contact Info */}
+          {/* Contact Info (Remains unchanged) */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
