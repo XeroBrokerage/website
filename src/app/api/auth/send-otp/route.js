@@ -35,7 +35,7 @@ export async function POST(req) {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: email,
-    subject: "🚀 Your XeroBrokerage OTP Is Here!",
+    subject: `${otp} is your XeroBrokerage OTP.`,
     text: `Your OTP is: ${otp}`, 
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px; border-radius: 8px; background: #f9f9f9;">

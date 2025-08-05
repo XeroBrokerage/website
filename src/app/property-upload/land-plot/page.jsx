@@ -17,6 +17,7 @@ const landPlot = () => {
       name: user.name,
       id: user.id,
       email: user.email,
+      phone: user.phone
     },
     propertyType: "",
     pricePerSqFt: "",
@@ -276,10 +277,7 @@ const landPlot = () => {
           </div>
         </div>
       </form>
-      <p className="mt-4">check this before submitting</p>
-      <pre className="mt-1 bg-black text-white p-2 rounded text-xs">
-        {JSON.stringify(formData, null, 2)}
-      </pre>
+      
 
       <div className="w-full max-w-4xl mt-8">
         <button
