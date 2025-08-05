@@ -2,6 +2,8 @@ import { connectDB } from "@/lib/db";
 import OtpSchema from "@/lib/models/Otp";
 
 export async function POST(req) {
+
+  //contains a vulnurablity... user can sign in without verifying OTP... (MITM Attacks)
   try {
     const { email, otp } = await req.json();
 
