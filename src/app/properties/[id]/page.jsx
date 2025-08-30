@@ -546,14 +546,14 @@ export default async function PropertyDetails({ params }) {
                 <h1 className="text-3xl md:text-4xl font-bold mb-2">{propertyType}</h1>
                 <div className="flex items-center text-yellow-100">
                   <span className="bg-yellow-600 px-3 py-1 rounded-full text-sm font-medium">
-                    {advertiseAs}
+                    {advertiseAs || 'Sell'}
                   </span>
                   <span className="mx-2">•</span>
                   <span>{address.split(',')[0]}</span>
                 </div>
               </div>
               <div className="mt-4 md:mt-0 bg-yellow-600 hover:bg-yellow-700 px-6 py-3 rounded-lg shadow-lg font-medium transition-transform hover:scale-105">
-                {pricePerSqFt ? `₹ ${pricePerSqFt} / sq ft` : 'Price on request'}
+                {pricePerSqFt ? `₹ ${pricePerSqFt} / sq ft` : 'Price on Request'}
               </div>
             </div>
           </div>
@@ -566,6 +566,7 @@ export default async function PropertyDetails({ params }) {
             <IoIosArrowForward />
             <span>{propertyType}s for {listingType}</span>
             <IoIosArrowForward />
+            <span>{id}</span>
             <span className="text-gray-700 font-semibold truncate">{title}</span>
           </nav>
         </div>
@@ -626,29 +627,29 @@ export default async function PropertyDetails({ params }) {
 
                   {propertyType === 'Plot/Land' && (
                     <>
-                      {pricePerAcre > 0 && (
+                      {/* {pricePerSqFt > 0 && (
                         <div className="flex items-start">
                           <div className="bg-yellow-100 p-2 rounded-lg mr-3">
                             <FiDollarSign className="text-yellow-600" />
                           </div>
                           <div>
-                            <h3 className="text-gray-500 text-sm">Price Per Acre</h3>
-                            <p className="font-medium">₹{pricePerAcre.toLocaleString('en-IN')}</p>
+                            <h3 className="text-gray-500 text-sm">Price Per Sq Ft.</h3>
+                            <p className="font-medium">₹{pricePerSqFt.toLocaleString('en-IN')}</p>
                           </div>
                         </div>
                       )}
-                      {totalAcres > 0 && (
+                      {area > 0 && (
                         <div className="flex items-start">
                           <div className="bg-yellow-100 p-2 rounded-lg mr-3">
                             <FiLayers className="text-yellow-600" />
                           </div>
                           <div>
-                            <h3 className="text-gray-500 text-sm">Total Acres</h3>
-                            <p className="font-medium">{totalAcres}</p>
+                            <h3 className="text-gray-500 text-sm">Total Area</h3>
+                            <p className="font-medium">{area} sq ft</p>
                           </div>
                         </div>
                       )}
-                      {pricePerAcre > 0 && totalAcres > 0 && (
+                      {pricePerSqFt > 0 && area > 0 && (
                         <div className="flex items-start">
                           <div className="bg-yellow-100 p-2 rounded-lg mr-3">
                             <FiDollarSign className="text-yellow-600" />
@@ -656,13 +657,16 @@ export default async function PropertyDetails({ params }) {
                           <div>
                             <h3 className="text-gray-500 text-sm">Total Price</h3>
                             <p className="font-medium">
-                              ₹{(pricePerAcre * totalAcres).toLocaleString('en-IN')}
+                              ₹{(pricePerSqFt * area).toLocaleString('en-IN')}
                             </p>
                           </div>
                         </div>
-                      )}
+                      )} */}
+
                     </>
                   )}
+
+
 
                   {area && (
                     <div className="flex items-start">
@@ -872,7 +876,7 @@ export default async function PropertyDetails({ params }) {
                   </li>
                   <li className="flex items-center">
                     <IoIosCheckmarkCircle className="text-yellow-500 mr-2" />
-                    <span>Available for: {advertiseAs}</span>
+                    <span>Available for: {advertiseAs || 'Sell'}</span>
                   </li>
                   {roadConnectivity && (
                     <li className="flex items-center">
