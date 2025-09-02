@@ -452,7 +452,7 @@ import HostelPropertyModel from '@/lib/models/HostelProperty';
 import ResidentialPropertyModel from '@/lib/models/ResidentialProperty';
 import PlotPropertyModel from '@/lib/models/PlotProperty';
 import { IoIosArrowForward, IoIosCheckmarkCircle } from 'react-icons/io';
-import { FiUploadCloud, FiDollarSign, FiMapPin, FiLayers, FiHome, FiTruck, FiShield, FiArchive } from 'react-icons/fi';
+import { FiUploadCloud, FiDollarSign, FiMapPin, FiLayers, FiHome, FiTruck, FiShield, FiArchive, FiMenu, FiWifi } from 'react-icons/fi';
 import Footer from '../../../components/ui/footer';
 import Image from 'next/image';
 import placeholderImage from 'assets/placeholder-house.png';
@@ -526,7 +526,9 @@ export default async function PropertyDetails({ params }) {
       listingType,
       bedrooms,
       bathrooms,
-      furnishingStatus,
+      attachedBathroom,
+      acAvailable,
+      wifi,
       foodIncluded,
       bhkConfig,
       residentialType,
@@ -779,7 +781,7 @@ export default async function PropertyDetails({ params }) {
                     {bhkConfig && (
                         <div className="flex items-start">
                       <div className="bg-yellow-100 p-2 rounded-lg mr-3">
-                        <FiShield className="text-yellow-600" />
+                        <FiMenu className="text-yellow-600" />
                       </div>
                       <div>
                         <h3 className="text-gray-500 text-sm">Configuration</h3>
@@ -837,6 +839,41 @@ export default async function PropertyDetails({ params }) {
                         </div>
                       </div>
                     )}
+
+                    {/* {bedrooms > 0 && (
+                      <div className="flex items-start">
+                        <div className="bg-yellow-100 p-2 rounded-lg mr-3">
+                          <FiHome className="text-yellow-600" />
+                        </div>
+                        <div>
+                          <h3 className="text-gray-500 text-sm">Bedrooms</h3>
+                          <p className="font-medium">{bedrooms}</p>
+                        </div>
+                      </div>
+                    )} */}
+
+                    {furnishing && (
+                        <div className="flex items-start">
+                          <div className="bg-yellow-100 p-2 rounded-lg mr-3">
+                            <FiHome className="text-yellow-600" />
+                          </div>
+                          <div>
+                            <h3 className="text-gray-500 text-sm">Furnishing</h3>
+                            <p className="font-medium">{furnishing}</p>
+                          </div>
+                        </div>
+                      )}
+                      {attachedBathroom && (
+                      <div className="flex items-start">
+                        <div className="bg-yellow-100 p-2 rounded-lg mr-3">
+                          <FiHome className="text-yellow-600" />
+                        </div>
+                        <div>
+                          <h3 className="text-gray-500 text-sm">Bathroom</h3>
+                          <p className="font-medium">{attachedBathroom}</p>
+                        </div>
+                      </div>
+                    )}
                     {foodIncluded && (
                         <div className="flex items-start">
                         <div className="bg-yellow-100 p-2 rounded-lg mr-3">
@@ -848,38 +885,27 @@ export default async function PropertyDetails({ params }) {
                         </div>
                       </div>
                     )}
-                    {bedrooms > 0 && (
-                      <div className="flex items-start">
-                        <div className="bg-yellow-100 p-2 rounded-lg mr-3">
-                          <FiHome className="text-yellow-600" />
+                    {acAvailable &&(
+                        <div className="flex items-start">
+                          <div className="bg-yellow-100 p-2 rounded-lg mr-3">
+                            <FiHome className="text-yellow-600" />
+                          </div>
+                          <div>
+                            <h3 className="text-gray-500 text-sm">AC Available</h3>
+                            <p className="font-medium">{acAvailable}</p>
+                          </div>
                         </div>
-                        <div>
-                          <h3 className="text-gray-500 text-sm">Bedrooms</h3>
-                          <p className="font-medium">{bedrooms}</p>
-                        </div>
-                      </div>
                     )}
-                    {bathrooms > 0 && (
-                      <div className="flex items-start">
-                        <div className="bg-yellow-100 p-2 rounded-lg mr-3">
-                          <FiHome className="text-yellow-600" />
+                    {wifi &&(
+                        <div className="flex items-start">
+                          <div className="bg-yellow-100 p-2 rounded-lg mr-3">
+                            <FiWifi className="text-yellow-600" />
+                          </div>
+                          <div>
+                            <h3 className="text-gray-500 text-sm">WiFi</h3>
+                            <p className="font-medium">{wifi}</p>
+                          </div>
                         </div>
-                        <div>
-                          <h3 className="text-gray-500 text-sm">Bathrooms</h3>
-                          <p className="font-medium">{bathrooms}</p>
-                        </div>
-                      </div>
-                    )}
-                    {furnishingStatus && (
-                      <div className="flex items-start">
-                        <div className="bg-yellow-100 p-2 rounded-lg mr-3">
-                          <FiHome className="text-yellow-600" />
-                        </div>
-                        <div>
-                          <h3 className="text-gray-500 text-sm">Furnishing</h3>
-                          <p className="font-medium">{furnishingStatus}</p>
-                        </div>
-                      </div>
                     )}
                   </>
                 )}
