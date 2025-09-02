@@ -451,11 +451,18 @@ import CommercialPropertyModel from '@/lib/models/CommercialProperty';
 import HostelPropertyModel from '@/lib/models/HostelProperty';
 import ResidentialPropertyModel from '@/lib/models/ResidentialProperty';
 import PlotPropertyModel from '@/lib/models/PlotProperty';
+
+// Symbol Imports
 import { IoIosArrowForward, IoIosCheckmarkCircle } from 'react-icons/io';
 import { FiUploadCloud, FiDollarSign, FiMapPin, FiLayers, FiHome, FiTruck, FiShield, FiArchive, FiMenu, FiWifi, FiWind } from 'react-icons/fi';
 import { FaRestroom, FaWind } from 'react-icons/fa';
+import {FaElevator} from 'react-icons/fa6'
 import { IoCar } from "react-icons/io5";
 import { IoMdConstruct } from "react-icons/io";
+import { ImWarning } from "react-icons/im";
+
+
+
 import Footer from '../../../components/ui/footer';
 import Image from 'next/image';
 import placeholderImage from 'assets/placeholder-house.png';
@@ -716,7 +723,7 @@ export default async function PropertyDetails({ params }) {
                     </div>
                   )}
 
-                  {parking && (
+                  {/* {parking && (
                     <div className="flex items-start">
                       <div className="bg-yellow-100 p-2 rounded-lg mr-3">
                         <FiTruck className="text-yellow-600" />
@@ -726,7 +733,7 @@ export default async function PropertyDetails({ params }) {
                         <p className="font-medium">{parking}</p>
                       </div>
                     </div>
-                  )}
+                  )} */}
 
                   {/* {lift && (
                     <div className="flex items-start">
@@ -778,7 +785,7 @@ export default async function PropertyDetails({ params }) {
                       </div>
                     </div>
                     )}
-                      {bedrooms > 0 && (
+                      {/* {bedrooms > 0 && (
                         <div className="flex items-start">
                           <div className="bg-yellow-100 p-2 rounded-lg mr-3">
                             <FiHome className="text-yellow-600" />
@@ -799,7 +806,7 @@ export default async function PropertyDetails({ params }) {
                             <p className="font-medium">{bathrooms}</p>
                           </div>
                         </div>
-                      )}
+                      )} */}
                       {furnishing && (
                         <div className="flex items-start">
                           <div className="bg-yellow-100 p-2 rounded-lg mr-3">
@@ -813,8 +820,19 @@ export default async function PropertyDetails({ params }) {
                       )}
                     </>
                   )}
+                  {/* {parking && (
+                    <div className="flex items-start">
+                      <div className="bg-yellow-100 p-2 rounded-lg mr-3">
+                        <ImWarning className="text-yellow-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-gray-500 text-sm">Parking</h3>
+                        <p className="font-medium">{parking}</p>
+                      </div>
+                    </div>
+                  )} */}
 
-                {/* Hostel Specific Fields */}
+                {/*------------------------------------ Hostel Specific Fields --------------------------------*/}
                 {propertyType === 'Hostel' && (
                   <>
                     {sharingType && (
@@ -886,21 +904,21 @@ export default async function PropertyDetails({ params }) {
                   </>
                 )}
 
-                  {/* Commercial Specific Fields */}
+                  {/*---------------------- Commercial Specific Fields ----------------------------------------*/}
                   {propertyType === 'Commercial' && (
                     <>
-                      {floors > 0 && (
+                  {/* {pricePerSqFt && (
                         <div className="flex items-start">
                           <div className="bg-yellow-100 p-2 rounded-lg mr-3">
-                            <FiLayers className="text-yellow-600" />
+                            <FiDollarSign className="text-yellow-600" />
                           </div>
                           <div>
-                            <h3 className="text-gray-500 text-sm">Floors</h3>
-                            <p className="font-medium">{floors}</p>
+                            <h3 className="text-gray-500 text-sm">Price Per Sq Ft.</h3>
+                            <p className="font-medium">₹{pricePerSqFt.toLocaleString('en-IN')}</p>
                           </div>
                         </div>
                       )}
-                    {address && (
+                   {address && (
                     <div className="flex items-start">
                       <div className="bg-yellow-100 p-2 rounded-lg mr-3">
                         <FiMapPin className="text-yellow-600" />
@@ -910,8 +928,8 @@ export default async function PropertyDetails({ params }) {
                         <p className="font-medium">{address}</p>
                       </div>
                     </div>
-                  )}
-                  {propertyType && (
+                  )} */}
+                  {/* {propertyType && (
                     <div className="flex items-start">
                       <div className="bg-yellow-100 p-2 rounded-lg mr-3">
                         <FiHome className="text-yellow-600" />
@@ -921,29 +939,67 @@ export default async function PropertyDetails({ params }) {
                         <p className="font-medium">{propertyType}</p>
                       </div>
                     </div>
-                  )}
+                  )} */}
                     </>
                   )}
-
-                  {/* Plot/Land Specific Fields */}
-                  {propertyType === 'Plot/Land' && (
-                    <>
-                      {landType && (
-                        <div className="flex items-start">
-                          <div className="bg-yellow-100 p-2 rounded-lg mr-3">
-                            <FiMapPin className="text-yellow-600" />
-                          </div>
-                          <div>
-                            <h3 className="text-gray-500 text-sm">Land Type</h3>
-                            <p className="font-medium">{landType}</p>
-                          </div>
+                  {pricePerSqFt && (
+                    <div className="flex items-start">
+                      <div className="bg-yellow-100 p-2 rounded-lg mr-3">
+                        <FiDollarSign className="text-yellow-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-gray-500 text-sm">Price Per Sq Ft.</h3>
+                        <p className="font-medium">₹{pricePerSqFt.toLocaleString('en-IN')}</p>
+                      </div>
+                    </div>
+                  )}
+                    {area  && (
+                      <div className="flex items-start">
+                        <div className="bg-yellow-100 p-2 rounded-lg mr-3">
+                          <FiMapPin className="text-yellow-600" />
                         </div>
-                      )}
-                    </>
+                        <div>
+                          <h3 className="text-gray-500 text-sm">Area</h3>
+                          <p className="font-medium">{area} sq.ft</p>
+                        </div>
+                      </div>
+                  )}
+                  {parking && (
+                    <div className="flex items-start">
+                      <div className="bg-yellow-100 p-2 rounded-lg mr-3">
+                        <ImWarning className="text-yellow-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-gray-500 text-sm">Parking</h3>
+                        <p className="font-medium">{parking}</p>
+                      </div>
+                    </div>
+                  )}
+                  {lift && (
+                    <div className="flex items-start">
+                      <div className="bg-yellow-100 p-2 rounded-lg mr-3">
+                        <FaElevator className="text-yellow-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-gray-500 text-sm">Lift</h3>
+                        <p className="font-medium">{lift}</p>
+                      </div>
+                    </div>
+                  )}
+                  {security && (
+                    <div className="flex items-start">
+                      <div className="bg-yellow-100 p-2 rounded-lg mr-3">
+                        <FiShield className="text-yellow-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-gray-500 text-sm">Security</h3>
+                        <p className="font-medium">{security}</p>
+                      </div>
+                    </div>
                   )}
 
                   {/* Common Fields */}
-                  {maintenance > 0 && (
+                  {/* {maintenance && (
                     <div className="flex items-start">
                       <div className="bg-yellow-100 p-2 rounded-lg mr-3">
                         <FiDollarSign className="text-yellow-600" />
@@ -965,7 +1021,7 @@ export default async function PropertyDetails({ params }) {
                         <p className="font-medium">{new Date(possessionDate).toLocaleDateString()}</p>
                       </div>
                     </div>
-                  )}
+                  )} */}
                 </div>
               </div>
 
