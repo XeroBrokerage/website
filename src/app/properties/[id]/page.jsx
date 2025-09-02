@@ -452,7 +452,10 @@ import HostelPropertyModel from '@/lib/models/HostelProperty';
 import ResidentialPropertyModel from '@/lib/models/ResidentialProperty';
 import PlotPropertyModel from '@/lib/models/PlotProperty';
 import { IoIosArrowForward, IoIosCheckmarkCircle } from 'react-icons/io';
-import { FiUploadCloud, FiDollarSign, FiMapPin, FiLayers, FiHome, FiTruck, FiShield, FiArchive, FiMenu, FiWifi } from 'react-icons/fi';
+import { FiUploadCloud, FiDollarSign, FiMapPin, FiLayers, FiHome, FiTruck, FiShield, FiArchive, FiMenu, FiWifi, FiWind } from 'react-icons/fi';
+import { FaRestroom, FaWind } from 'react-icons/fa';
+import { IoCar } from "react-icons/io5";
+import { IoMdConstruct } from "react-icons/io";
 import Footer from '../../../components/ui/footer';
 import Image from 'next/image';
 import placeholderImage from 'assets/placeholder-house.png';
@@ -639,10 +642,10 @@ export default async function PropertyDetails({ params }) {
                       )}
                     </>
                   )}
-
+{/* ------------------------------------ Land/Plot Specific Fields--------------------------------------------- */}
                   {propertyType === 'Plot/Land' && (
                     <>
-                      {/* {pricePerSqFt > 0 && (
+                      {pricePerSqFt && (
                         <div className="flex items-start">
                           <div className="bg-yellow-100 p-2 rounded-lg mr-3">
                             <FiDollarSign className="text-yellow-600" />
@@ -653,18 +656,18 @@ export default async function PropertyDetails({ params }) {
                           </div>
                         </div>
                       )}
-                      {area > 0 && (
+                      {area  && (
                         <div className="flex items-start">
                           <div className="bg-yellow-100 p-2 rounded-lg mr-3">
                             <FiLayers className="text-yellow-600" />
                           </div>
                           <div>
                             <h3 className="text-gray-500 text-sm">Total Area</h3>
-                            <p className="font-medium">{area} sq ft</p>
+                            <p className="font-medium">{area} Sq Ft.</p>
                           </div>
                         </div>
                       )}
-                      {pricePerSqFt > 0 && area > 0 && (
+                      {pricePerSqFt && area > 0 && (
                         <div className="flex items-start">
                           <div className="bg-yellow-100 p-2 rounded-lg mr-3">
                             <FiDollarSign className="text-yellow-600" />
@@ -676,8 +679,7 @@ export default async function PropertyDetails({ params }) {
                             </p>
                           </div>
                         </div>
-                      )} */}
-
+                      )}
                     </>
                   )}
                   {landType && (
@@ -691,23 +693,10 @@ export default async function PropertyDetails({ params }) {
                       </div>
                     </div>
                   )}
-
-                  {area && (
-                    <div className="flex items-start">
-                      <div className="bg-yellow-100 p-2 rounded-lg mr-3">
-                        <FiLayers className="text-yellow-600" />
-                      </div>
-                      <div>
-                        <h3 className="text-gray-500 text-sm">Total Area</h3>
-                        <p className="font-medium">{area} sq ft</p>
-                      </div>
-                    </div>
-                  )}
-
                   {roadConnectivity && (
                     <div className="flex items-start">
                       <div className="bg-yellow-100 p-2 rounded-lg mr-3">
-                        <FiMapPin className="text-yellow-600" />
+                        <IoCar className="text-yellow-600" />
                       </div>
                       <div>
                         <h3 className="text-gray-500 text-sm">Road Connectivity</h3>
@@ -739,7 +728,7 @@ export default async function PropertyDetails({ params }) {
                     </div>
                   )}
 
-                  {lift && (
+                  {/* {lift && (
                     <div className="flex items-start">
                       <div className="bg-yellow-100 p-2 rounded-lg mr-3">
                         <FiUploadCloud className="text-yellow-600" />
@@ -761,9 +750,9 @@ export default async function PropertyDetails({ params }) {
                         <p className="font-medium">{security}</p>
                       </div>
                     </div>
-                  )}
+                  )} */}
 
-                  {/* Residential Specific Fields */}
+                  {/* ------------------------Residential Specific Fields -------------------------------*/}
                   {(propertyType === 'Residential') && (
                     <>
                     {residentialType && (
@@ -814,7 +803,7 @@ export default async function PropertyDetails({ params }) {
                       {furnishing && (
                         <div className="flex items-start">
                           <div className="bg-yellow-100 p-2 rounded-lg mr-3">
-                            <FiHome className="text-yellow-600" />
+                            <IoMdConstruct className="text-yellow-600" />
                           </div>
                           <div>
                             <h3 className="text-gray-500 text-sm">Furnishing</h3>
@@ -839,23 +828,10 @@ export default async function PropertyDetails({ params }) {
                         </div>
                       </div>
                     )}
-
-                    {/* {bedrooms > 0 && (
-                      <div className="flex items-start">
-                        <div className="bg-yellow-100 p-2 rounded-lg mr-3">
-                          <FiHome className="text-yellow-600" />
-                        </div>
-                        <div>
-                          <h3 className="text-gray-500 text-sm">Bedrooms</h3>
-                          <p className="font-medium">{bedrooms}</p>
-                        </div>
-                      </div>
-                    )} */}
-
                     {furnishing && (
                         <div className="flex items-start">
                           <div className="bg-yellow-100 p-2 rounded-lg mr-3">
-                            <FiHome className="text-yellow-600" />
+                            <IoMdConstruct className="text-yellow-600" />
                           </div>
                           <div>
                             <h3 className="text-gray-500 text-sm">Furnishing</h3>
@@ -866,7 +842,7 @@ export default async function PropertyDetails({ params }) {
                       {attachedBathroom && (
                       <div className="flex items-start">
                         <div className="bg-yellow-100 p-2 rounded-lg mr-3">
-                          <FiHome className="text-yellow-600" />
+                          <FaRestroom className="text-yellow-600" />
                         </div>
                         <div>
                           <h3 className="text-gray-500 text-sm">Bathroom</h3>
@@ -888,7 +864,7 @@ export default async function PropertyDetails({ params }) {
                     {acAvailable &&(
                         <div className="flex items-start">
                           <div className="bg-yellow-100 p-2 rounded-lg mr-3">
-                            <FiHome className="text-yellow-600" />
+                            <FaWind className="text-yellow-600" />
                           </div>
                           <div>
                             <h3 className="text-gray-500 text-sm">AC Available</h3>
