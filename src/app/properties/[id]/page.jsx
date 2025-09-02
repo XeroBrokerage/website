@@ -452,7 +452,7 @@ import HostelPropertyModel from '@/lib/models/HostelProperty';
 import ResidentialPropertyModel from '@/lib/models/ResidentialProperty';
 import PlotPropertyModel from '@/lib/models/PlotProperty';
 import { IoIosArrowForward, IoIosCheckmarkCircle } from 'react-icons/io';
-import { FiUploadCloud, FiDollarSign, FiMapPin, FiLayers, FiHome, FiTruck, FiShield } from 'react-icons/fi';
+import { FiUploadCloud, FiDollarSign, FiMapPin, FiLayers, FiHome, FiTruck, FiShield, FiArchive } from 'react-icons/fi';
 import Footer from '../../../components/ui/footer';
 import Image from 'next/image';
 import placeholderImage from 'assets/placeholder-house.png';
@@ -527,6 +527,7 @@ export default async function PropertyDetails({ params }) {
       bedrooms,
       bathrooms,
       furnishingStatus,
+      foodIncluded,
       bhkConfig,
       residentialType,
       flooringType,
@@ -534,6 +535,7 @@ export default async function PropertyDetails({ params }) {
       possessionDate,
       amenities,
       floors,
+      sharingType,
       furnishing,
       pricePerAcre,
       totalAcres,
@@ -676,7 +678,17 @@ export default async function PropertyDetails({ params }) {
 
                     </>
                   )}
-
+                  {landType && (
+                    <div className="flex items-start">
+                      <div className="bg-yellow-100 p-2 rounded-lg mr-3">
+                        <FiMapPin className="text-yellow-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-gray-500 text-sm">Land Type</h3>
+                        <p className="font-medium">{landType}</p>
+                      </div>
+                    </div>
+                  )}
 
                   {area && (
                     <div className="flex items-start">
@@ -770,7 +782,7 @@ export default async function PropertyDetails({ params }) {
                         <FiShield className="text-yellow-600" />
                       </div>
                       <div>
-                        <h3 className="text-gray-500 text-sm">Configration</h3>
+                        <h3 className="text-gray-500 text-sm">Configuration</h3>
                         <p className="font-medium">{bhkConfig}</p>
                       </div>
                     </div>
@@ -814,14 +826,25 @@ export default async function PropertyDetails({ params }) {
                 {/* Hostel Specific Fields */}
                 {propertyType === 'Hostel' && (
                   <>
-                    {hostelType && (
+                    {sharingType && (
                       <div className="flex items-start">
                         <div className="bg-yellow-100 p-2 rounded-lg mr-3">
                           <FiHome className="text-yellow-600" />
                         </div>
                         <div>
                           <h3 className="text-gray-500 text-sm">Hostel Type</h3>
-                          <p className="font-medium">{hostelType}</p>
+                          <p className="font-medium">{sharingType}</p>
+                        </div>
+                      </div>
+                    )}
+                    {foodIncluded && (
+                        <div className="flex items-start">
+                        <div className="bg-yellow-100 p-2 rounded-lg mr-3">
+                          <FiArchive className="text-yellow-600" />
+                        </div>
+                        <div>
+                          <h3 className="text-gray-500 text-sm">Food Included</h3>
+                          <p className="font-medium">{foodIncluded}</p>
                         </div>
                       </div>
                     )}

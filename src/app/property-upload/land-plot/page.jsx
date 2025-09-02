@@ -132,7 +132,7 @@ const formatCurrency = (e) => {
             </label>
             <select
               name="propertyType"
-              value={formData.propertyType}
+              value={formData.landType}
               onChange={handleChange}
               className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             >
@@ -286,7 +286,7 @@ const formatCurrency = (e) => {
           </div>
         </div>
       </form>
-      
+
 
       <div className="w-full max-w-4xl mt-8">
         <button
