@@ -663,7 +663,7 @@ export default async function PropertyDetails({ params }) {
                           </div>
                         </div>
                       )}
-                      {area  && (
+                      {/* {area  && (
                         <div className="flex items-start">
                           <div className="bg-yellow-100 p-2 rounded-lg mr-3">
                             <FiLayers className="text-yellow-600" />
@@ -673,7 +673,7 @@ export default async function PropertyDetails({ params }) {
                             <p className="font-medium">{area} Sq Ft.</p>
                           </div>
                         </div>
-                      )}
+                      )} */}
                       {pricePerSqFt && area > 0 && (
                         <div className="flex items-start">
                           <div className="bg-yellow-100 p-2 rounded-lg mr-3">
