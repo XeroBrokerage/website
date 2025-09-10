@@ -20,7 +20,7 @@ import {
 
 const UserProfile = () => {
   const router = useRouter()
-  const { user, isAuthenticated, logout } = useAuth()
+  const { user, isAuthenticated, logout, login } = useAuth()
   const [loading, setLoading] = useState(false)
   const [propertiesLoading, setPropertiesLoading] = useState(false)
   const [userProperties, setUserProperties] = useState([])
@@ -74,33 +74,38 @@ const UserProfile = () => {
     }
   }
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (!user?.id) return
-      try {
-        const res = await fetch('/api/users/get-user', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ userId: user.id }),
-        })
-        if (!res.ok) throw new Error('Failed to fetch user data')
-        const data = await res.json()
-        if (data.success && data.user) {
-          setProfileData({
-            name: data.user.name || '',
-            phone: data.user.phone || '',
-            profilePic: data.user.profilePic || '/def_profile.png',
-          })
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error)
-      }
-    }
+  // Fetch user data
+  const fetchUserData = async () => {
+    if (!user?.id) return
+    try {
+      const res = await fetch('/api/users/get-user', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ userId: user.id }),
+      })
 
-    fetchUserData()
-    fetchUserProperties() // Fetch properties when user data is available
+      if (!res.ok) throw new Error('Failed to fetch user data')
+
+      const data = await res.json()
+      if (data.success && data.user) {
+        setProfileData({
+          name: data.user.name || '',
+          phone: data.user.phone || '',
+          profilePic: data.user.profilePic || DEFAULT_PROFILE_IMAGE,
+        })
+      }
+    } catch (error) {
+      console.error('Error fetching user data:', error)
+    }
+  }
+
+  useEffect(() => {
+    if (user?.id) {
+      fetchUserData()
+      fetchUserProperties()
+    }
   }, [user])
 
   const handleLogout = async () => {
@@ -133,10 +138,10 @@ const UserProfile = () => {
     }
   }, [isAuthenticated, router])
 
-  const handleProfilePicChange = e => {
+  const handleProfilePicChange = async e => {
     try {
       const file = e.target.files[0]
-      if (!file) return // Exit if no file selected
+      if (!file) return
 
       // Validate file type
       if (!file.type.match('image.*')) {
@@ -151,12 +156,56 @@ const UserProfile = () => {
       }
 
       const reader = new FileReader()
-      reader.onload = event => {
-        setProfileData({ ...profileData, profilePic: event.target.result })
+      reader.onload = async event => {
+        // Convert image to base64 for storage
+        const base64Image = event.target.result
+
+        // Update local state immediately for better UX
+        setProfileData({ ...profileData, profilePic: base64Image })
+
+        // Save to database
+        try {
+          const res = await fetch('/api/users/update-profile', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: user.id,
+              profilePic: base64Image,
+            }),
+          })
+
+          const data = await res.json()
+
+          if (res.ok && data.success) {
+            toast.success('Profile picture updated successfully!', {
+              theme: 'dark',
+              position: 'bottom-right',
+              autoClose: 3000,
+            })
+
+            // Update auth context with new user data
+            if (data.user) {
+              login(user.token, data.user)
+            }
+          } else {
+            toast.error(data.error || 'Failed to update profile picture')
+            // Revert to previous profile pic if update failed
+            fetchUserData()
+          }
+        } catch (error) {
+          toast.error('Failed to update profile picture')
+          console.error('Profile update error:', error)
+          // Revert to previous profile pic if update failed
+          fetchUserData()
+        }
       }
+
       reader.onerror = () => {
         toast.error('Error reading file')
       }
+
       reader.readAsDataURL(file)
     } catch (error) {
       toast.error('Error uploading image')
@@ -177,16 +226,11 @@ const UserProfile = () => {
     }
     let isValid = true
 
-    // Validate current password (mock validation - replace with actual API call)
     if (!passwordForm.currentPassword) {
       errors.currentPassword = 'Current password is required'
       isValid = false
-    } else if (passwordForm.currentPassword.length === 0) {
-      errors.currentPassword = 'Password Invalid'
-      isValid = false
     }
 
-    // Validate new password
     if (!passwordForm.newPassword) {
       errors.newPassword = 'New password is required'
       isValid = false
@@ -195,7 +239,6 @@ const UserProfile = () => {
       isValid = false
     }
 
-    // Validate confirm password
     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
       errors.confirmPassword = 'Passwords do not match'
       isValid = false
@@ -266,22 +309,41 @@ const UserProfile = () => {
   const handleProfileUpdate = async e => {
     e.preventDefault()
     setLoading(true)
+
     try {
-      // Update profile through auth context
-      // You'll need to implement this function in your auth context
-      // await updateProfile({
-      //   name: profileData.name,
-      //   phone: profileData.phone,
-      //   profilePic: profileData.profilePic,
-      // })
-      toast.success('Profile updated successfully!', {
-        theme: 'dark',
-        position: 'bottom-right',
-        autoClose: 3000,
+      const response = await fetch('/api/users/update-profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          userId: user.id,
+          name: profileData.name,
+          phone: profileData.phone,
+        }),
       })
-      setEditMode(false)
+
+      const data = await response.json()
+
+      if (response.ok && data.success) {
+        toast.success('Profile updated successfully!', {
+          theme: 'dark',
+          position: 'bottom-right',
+          autoClose: 3000,
+        })
+
+        // Update auth context with new user data
+        if (data.user) {
+          login(user.token, data.user)
+        }
+
+        setEditMode(false)
+      } else {
+        toast.error(data.error || 'Profile update failed')
+      }
     } catch (error) {
       toast.error('Profile update failed')
+      console.error('Profile update error:', error)
     } finally {
       setLoading(false)
     }
@@ -357,7 +419,7 @@ const UserProfile = () => {
                 onClick={() => fileInputRef.current?.click()}
                 className='absolute bottom-0 right-0 bg-blue-600 text-white p-2 rounded-full hover:bg-blue-700 transition transform hover:scale-110'
                 disabled={loading}
-                type='button' // Important to prevent form submission
+                type='button'
               >
                 <Camera size={18} />
               </button>
