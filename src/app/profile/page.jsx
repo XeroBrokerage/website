@@ -718,9 +718,9 @@ const UserProfile = () => {
                   </div>
 
                   <div className='p-4'>
-                    <h3 className='font-semibold text-lg mb-2 line-clamp-1'>
-                      {property.title || 'Untitled Property'}
-                    </h3>
+                    {/* <h3 className='font-semibold text-lg mb-2 line-clamp-1'>
+                      {property.propertyType || 'Untitled Property'}
+                    </h3> */}
 
                     <p className='text-gray-600 text-sm mb-3 line-clamp-2'>
                       {property.address}
@@ -728,8 +728,8 @@ const UserProfile = () => {
 
                     <div className='flex justify-between items-center mb-3'>
                       <span className='text-blue-600 font-bold'>
-                        {property.price
-                          ? `₹${property.price.toLocaleString()}`
+                        {property.pricePerSqFt
+                          ? `₹${property.pricePerSqFt}/Sq Ft.`
                           : 'Price on Request'}
                       </span>
                       <span className='text-sm text-gray-500'>

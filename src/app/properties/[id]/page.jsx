@@ -521,7 +521,7 @@ export default async function PropertyDetails({ params }) {
             {/* Right Column - Owner Info & Features */}
             <div>
               {/* Owner Card */}
-              <div className='bg-white rounded-xl shadow-md p-6 sticky top-6'>
+              <div className='bg-white rounded-xl shadow-md p-6  top-6'>
                 <h2 className='text-xl font-bold text-gray-800 mb-4'>
                   Listed By
                 </h2>
