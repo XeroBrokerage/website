@@ -24,11 +24,11 @@ import { FaElevator } from 'react-icons/fa6'
 import { IoCar } from 'react-icons/io5'
 import { IoMdConstruct } from 'react-icons/io'
 import { ImWarning } from 'react-icons/im'
-import link from 'next/link'
 
 import Footer from '../../../components/ui/footer'
 import Image from 'next/image'
 import placeholderImage from 'assets/placeholder-house.png'
+import Link from 'next/link'
 
 // Import the dynamic map component
 import dynamic from 'next/dynamic'
@@ -41,7 +41,7 @@ const PropertyMap = dynamic(() => import('@/components/ui/PropertyMap'), {
 })
 
 // Import the delete button component (client-side)
-import DeletePropertyButton from '../../delete-property/page'
+import DeletePropertyButton from '@/app/delete-property/page'
 
 export async function generateMetadata({ params }) {
   return {
@@ -521,7 +521,7 @@ export default async function PropertyDetails({ params }) {
             {/* Right Column - Owner Info & Features */}
             <div>
               {/* Owner Card */}
-              <div className='bg-white rounded-xl shadow-md p-6  top-6'>
+              <div className='bg-white rounded-xl shadow-md p-6 sticky top-6'>
                 <h2 className='text-xl font-bold text-gray-800 mb-4'>
                   Listed By
                 </h2>
@@ -538,9 +538,23 @@ export default async function PropertyDetails({ params }) {
                     </p>
                   </div>
                 </div>
-                <button className='w-full bg-yellow-500 hover:bg-yellow-600 text-white py-3 rounded-lg font-medium transition-colors'>
-                  Contact Owner
-                </button>
+
+                {/* Check if uploadedBy has an ID before showing the contact button */}
+                {uploadedBy?.id ? (
+                  <Link
+                    href={`/contact-owner/${uploadedBy.id}`}
+                    className='w-full flex justify-center items-center bg-yellow-500 hover:bg-yellow-600 text-white py-3 rounded-lg font-medium transition-colors'
+                  >
+                    Contact Owner
+                  </Link>
+                ) : (
+                  <button
+                    className='w-full bg-gray-400 text-white py-3 rounded-lg font-medium cursor-not-allowed'
+                    disabled
+                  >
+                    Contact Unavailable
+                  </button>
+                )}
               </div>
 
               {/* Features */}
