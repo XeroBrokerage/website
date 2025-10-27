@@ -460,8 +460,8 @@ const ContactOwner = () => {
                                 href={propertyUrl}
                                 className='opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 bg-white text-blue-600 px-6 py-2 rounded-full font-semibold shadow-lg hover:bg-blue-600 hover:text-white'
                               >
-                                <Eye size={16} className='inline mr-1' />
-                                View Details
+                                <Eye size={20} className='inline mr-2' />
+                                Click to View Details
                               </Link>
                             </div>
                           </div>
