@@ -218,9 +218,9 @@ const ContactOwner = () => {
         </div>
 
         {/* Owner Profile Card - Enhanced */}
-        <div className='bg-white rounded-2xl shadow-xl overflow-hidden mb-8 border border-blue-100'>
+        <div className='bg-white rounded-2xl shadow-xl overflow-hidden mb-8 border border-amber-300'>
           {/* Profile Header with Gradient */}
-          <div className='bg-gradient-to-r from-blue-500 to-indigo-600 px-8 py-12 text-center relative overflow-hidden'>
+          <div className='bg-gradient-to-r from-yellow-400 to-yellow-500 px-8 py-12 text-center relative overflow-hidden'>
             {/* Background Pattern */}
             <div className='absolute inset-0 opacity-10'>
               <div className='absolute top-0 left-0 w-32 h-32 bg-white rounded-full -translate-x-16 -translate-y-16'></div>
@@ -245,7 +245,9 @@ const ContactOwner = () => {
               <h1 className='text-3xl font-bold text-white mb-2'>
                 {ownerData.name}
               </h1>
-              <p className='text-blue-100 text-lg mb-4'>Property Owner</p>
+              <p className='text-white font-bold text-lg mb-4'>
+                Property Owner
+              </p>
 
               {/* Stats */}
               <div className='flex justify-center space-x-8 mt-6'>
@@ -253,26 +255,26 @@ const ContactOwner = () => {
                   <div className='text-white text-2xl font-bold'>
                     {userProperties.length}
                   </div>
-                  <div className='text-blue-100 text-sm'>Properties</div>
+                  <div className='text-white text-sm'>Properties</div>
                 </div>
-                <div className='text-center'>
+                {/* <div className='text-center'>
                   <div className='text-white text-2xl font-bold'>
                     {
-                      userProperties.filter(p => p.listingType === 'For Sale')
+                      userProperties.filter(p => p.listingType === 'For Sell')
                         .length
                     }
                   </div>
-                  <div className='text-blue-100 text-sm'>For Sale</div>
-                </div>
-                <div className='text-center'>
+                  <div className='text-white text-sm'>For Sale</div>
+                </div> */}
+                {/* <div className='text-center'>
                   <div className='text-white text-2xl font-bold'>
                     {
                       userProperties.filter(p => p.listingType === 'For Rent')
                         .length
                     }
                   </div>
-                  <div className='text-blue-100 text-sm'>For Rent</div>
-                </div>
+                  <div className='text-white text-sm'>For Rent</div>
+                </div> */}
               </div>
             </div>
           </div>
@@ -285,7 +287,7 @@ const ContactOwner = () => {
                 onClick={() => setActiveTab('contact')}
                 className={`flex items-center px-6 py-3 font-medium text-lg border-b-2 transition-all duration-300 ${
                   activeTab === 'contact'
-                    ? 'border-blue-600 text-blue-600'
+                    ? 'border-yellow-300 text-amber-400'
                     : 'border-transparent text-gray-500 hover:text-gray-700'
                 }`}
               >
@@ -296,7 +298,7 @@ const ContactOwner = () => {
                 onClick={() => setActiveTab('properties')}
                 className={`flex items-center px-6 py-3 font-medium text-lg border-b-2 transition-all duration-300 ${
                   activeTab === 'properties'
-                    ? 'border-blue-600 text-blue-600'
+                    ? 'border-yellow-300 text-amber-400'
                     : 'border-transparent text-gray-500 hover:text-gray-700'
                 }`}
               >
@@ -308,7 +310,7 @@ const ContactOwner = () => {
             {activeTab === 'contact' && (
               <div className='space-y-6'>
                 <h2 className='text-2xl font-bold text-gray-800 mb-6 flex items-center'>
-                  <User className='text-blue-600 mr-3' />
+                  <User className='text-yellow-600 mr-3' />
                   Get in Touch
                 </h2>
 
@@ -397,7 +399,7 @@ const ContactOwner = () => {
             {activeTab === 'properties' && (
               <div>
                 <h2 className='text-2xl font-bold text-gray-800 mb-6 flex items-center'>
-                  <Home className='text-blue-600 mr-3' />
+                  <Home className='text-yellow-600 mr-3' />
                   Properties Listed by {ownerData.name}
                 </h2>
 
@@ -439,7 +441,7 @@ const ContactOwner = () => {
                             />
 
                             {/* Property Type Badge */}
-                            <div className='absolute top-3 left-3 bg-blue-600 text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg'>
+                            <div className='absolute top-3 left-3 bg-yellow-500 text-white px-3 py-1 rounded-full text-xs font-medium shadow-lg'>
                               {property.propertyType || 'Property'}
                             </div>
 
@@ -458,7 +460,7 @@ const ContactOwner = () => {
                             <div className='absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center'>
                               <Link
                                 href={propertyUrl}
-                                className='opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 bg-white text-blue-600 px-6 py-2 rounded-full font-semibold shadow-lg hover:bg-blue-600 hover:text-white'
+                                className='opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 bg-white text-amber-500 px-6 py-2 rounded-full font-semibold shadow-lg hover:bg-yellow-400 hover:text-white'
                               >
                                 <Eye size={20} className='inline mr-2' />
                                 Click to View Details
@@ -468,7 +470,7 @@ const ContactOwner = () => {
 
                           {/* Content Section */}
                           <div className='p-5'>
-                            <h3 className='font-bold text-lg text-gray-800 mb-2 line-clamp-1 group-hover:text-blue-600 transition-colors'>
+                            <h3 className='font-bold text-lg text-gray-800 mb-2 line-clamp-1 group-hover:text-yellow-500 transition-colors'>
                               {property.propertyType + ' Property' ||
                                 'Untitled Property'}
                             </h3>
@@ -484,7 +486,7 @@ const ContactOwner = () => {
                             </div>
 
                             <div className='flex justify-between items-center mb-4'>
-                              <span className='text-blue-700 font-bold text-lg'>
+                              <span className='text-yellow-500 font-bold text-lg'>
                                 {property.pricePerSqFt
                                   ? `₹${property.pricePerSqFt.toLocaleString()}/Sq Ft`
                                   : 'Price on Request'}
@@ -502,7 +504,7 @@ const ContactOwner = () => {
                               </div>
                               <Link
                                 href={propertyUrl}
-                                className='bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-all duration-300 shadow hover:shadow-md'
+                                className='bg-yellow-500 text-white  px-4 py-2 rounded-lg text-sm font-medium hover:bg-amber-600 transition-all duration-300 shadow hover:shadow-md'
                               >
                                 View Property
                               </Link>
@@ -519,15 +521,15 @@ const ContactOwner = () => {
         </div>
 
         {/* Call to Action */}
-        <div className='bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-8 text-center text-white mb-8'>
+        <div className='bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-2xl p-8 text-center text-white mb-8'>
           <h2 className='text-2xl font-bold mb-3'>Ready to Connect?</h2>
-          <p className='text-blue-100 mb-6 text-lg'>
+          <p className='text-white mb-6 text-lg'>
             Reach out to {ownerData.name} directly for any property inquiries
           </p>
           <div className='flex flex-col sm:flex-row gap-4 justify-center'>
             <a
               href={`mailto:${ownerData.email}?subject=Inquiry about your property listing`}
-              className='inline-flex items-center justify-center px-8 py-3 bg-white text-blue-600 rounded-xl hover:bg-blue-50 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl'
+              className='inline-flex items-center justify-center px-8 py-3 bg-white text-yellow-600 rounded-xl hover:bg-yellow-50 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl'
             >
               <MessageCircle size={20} className='mr-2' />
               Send Message
