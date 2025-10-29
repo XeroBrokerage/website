@@ -131,7 +131,7 @@ export default async function PropertyDetails({ params }) {
     return (
       <div className='bg-gray-50 min-h-screen'>
         {/* Header Section */}
-        <div className='bg-yellow-500 py-12 px-4 sm:px-6 lg:px-8 text-white'>
+        <div className='bg-amber-400 py-12 px-4 sm:px-6 lg:px-8 text-white'>
           <div className='max-w-7xl mx-auto'>
             <div className='flex flex-col md:flex-row justify-between items-start md:items-end'>
               <div>
