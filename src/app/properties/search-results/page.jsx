@@ -126,7 +126,8 @@ export default function SearchResults() {
           <div className='text-center py-12'>
             <div className='text-gray-400 text-6xl mb-4'>🔍</div>
             <h2 className='text-xl font-semibold text-gray-600 mb-2'>
-              No properties found
+              No properties found  
+              <p className='font-bold text-xl text-red-500'>(This feature is currently Under Maintenance)</p>
             </h2>
             <p className='text-gray-500 mb-4'>
               Try adjusting your search criteria or browse all properties.
