@@ -610,13 +610,7 @@ export default async function PropertyDetails({ params }) {
   }
 }
 
-// import React from 'react'
 
-// const page = () => {
-//   return (
-//     <div>page</div>
-//   )
-// }
 
 // <----------------- Perfectly Working Commercial Page --------------->
 // import { connectDB } from '@/lib/db';
