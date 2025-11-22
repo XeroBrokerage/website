@@ -83,7 +83,7 @@ export const AuthProvider = ({ children }) => {
         loading,
         login,
         logout,
-        getUserEmail, // Add this function
+        getUserEmail,
       }}
     >
       {!loading && children}
