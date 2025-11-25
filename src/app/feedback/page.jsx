@@ -72,7 +72,7 @@ const FeedbackPage = () => {
     if (!validateForm()) return
 
     setIsSending(true)
-    setErrors({}) // Clear previous errors
+    setErrors({})
 
     try {
       const response = await emailjs.send(
