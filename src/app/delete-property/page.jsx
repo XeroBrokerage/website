@@ -119,9 +119,6 @@ export default function DeletePropertyButton({
   return (
     <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6'>
       <div className='bg-white rounded-xl shadow-md p-6 text-center'>
-        {/* <h3 className='text-lg font-semibold text-gray-800 mb-4'>
-          Property Management
-        </h3> */}
         <button
           onClick={handleDelete}
           disabled={loading}
