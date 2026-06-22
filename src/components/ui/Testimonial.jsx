@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 const testimonials = [
   {
     id: 1,
-    name: 'Rudransh Choubey',
+    name: 'Shashwat Mishra',
     role: 'Owner',
     image: '/Umair.svg',
     quote:
