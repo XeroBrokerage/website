@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -27,8 +28,18 @@ export default function Navbar() {
   }, [menuOpen]);
 
   return (
-    <nav className="header fixed min-w-screen min-h-15 sm:min-h-20 bg-[#ffdf4d] flex justify-between items-center lg:px-6 px-4 z-50 border-b-[1px] border-b-gray-600">
-      <Link href="/" className="playfair-display text-3xl">
+    <nav className="fixed top-0 left-0 w-full h-16 bg-[#ffdf4d] flex justify-between items-center lg:px-6 px-4 z-50 border-b border-b-gray-600">
+      <Link href="/" className="flex items-center">
+        <Image
+          src="/xeroLogo.png"
+          alt="XeroBrokerage Logo"
+          width={120}
+          height={40}
+          priority
+          className="w-[90px] sm:w-[120px] h-auto"
+        />
+      </Link>
+      {/* <Link href="/" className="playfair-display text-3xl">
         <div className="flex flex-row items-center justify-center ">
           <span>
             <svg
@@ -49,7 +60,9 @@ export default function Navbar() {
             </span>
           </div>
         </div>
-      </Link>
+      </Link> */}
+
+      
 
       <div
         className="lg:hidden md:hidden flex cursor-pointer"
@@ -86,7 +99,7 @@ export default function Navbar() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: -20 }}
               transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="fixed top-[72px] left-1/2 transform -translate-x-1/2 w-[92vw] max-w-md bg-black/70 text-white flex flex-col gap-4 p-4 poppins-semibold lg:hidden z-50 shadow-md backdrop-blur-md rounded-xl"
+              className="fixed top-16 left-1/2 transform -translate-x-1/2 w-[92vw] max-w-md bg-black/70 text-white flex flex-col gap-4 p-4 poppins-semibold lg:hidden z-50 shadow-md backdrop-blur-md rounded-xl"
             >
               <div className="flex justify-end mb-2">
                 <button
