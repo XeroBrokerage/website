@@ -99,7 +99,7 @@ const Footer = () => {
         </div>
       </div>
       <div className='py-6 text-sm text-center dark:text-gray-600'>
-        © 2025 XeroBrokerage.in - All rights reserved.
+        ©2026 XeroBrokerage.in - All rights reserved.
       </div>
     </footer>
   )
