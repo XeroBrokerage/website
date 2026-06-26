@@ -45,7 +45,7 @@ const FAQPage = () => {
       icon: <FiUser className='text-red-500' />,
     },
     {
-      question: 'Can I negotiate the price directly with the owner?',
+      question: 'Can I negotiate the price directly with the Owner?',
       answer:
         'Absolutely! One of the main benefits of our no-brokerage model is that you can negotiate directly with the property owner without any middleman influencing the price.',
       icon: <FiFileText className='text-orange-500' />,
