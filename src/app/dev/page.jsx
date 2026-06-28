@@ -1,7 +1,5 @@
 'use client'
 import React from 'react'
-// import myImage from '@assets/myImage.png';
-
 const DevelopersPage = () => {
   const developers = [
     {
@@ -14,7 +12,6 @@ const DevelopersPage = () => {
       links: {
         github: 'https://github.com/yrCodem',
         linkedin: 'https://www.linkedin.com/in/therealyash',
-        // portfolio: 'https://johndoe.dev',
         email: 'yashrawalkar04@gmail.com',
       },
     },
