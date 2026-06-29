@@ -202,17 +202,6 @@ const AboutUsPage = () => {
             </div>
           </div>
 
-          {/* Floating CTA */}
-          {/* <Link href='/journey-modal' passHref>
-            <motion.button
-              className='mx-auto block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105'
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Join Our Journey
-            </motion.button>
-          </Link> */}
-
           {/* Render the modal conditionally */}
           {showModal && (
             <JoinJourneyModal onClose={() => setShowModal(false)} />
