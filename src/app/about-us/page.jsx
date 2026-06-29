@@ -153,52 +153,6 @@ const AboutUsPage = () => {
             <div className='hidden md:block absolute left-1/2 h-full w-0.5 bg-blue-200 transform -translate-x-1/2'></div>
             {/* Timeline items */}
             <div className='space-y-12 md:space-y-0'>
-              {/* <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
-                className='relative md:flex md:items-center md:justify-between'
-              >
-                <div className='md:w-5/12 md:pr-8 mb-6 md:mb-0 text-right'>
-                  <div className='bg-blue-50 p-6 rounded-xl shadow-sm'>
-                    <h3 className='text-xl font-bold text-blue-600 mb-2'>
-                      1998
-                    </h3>
-                    <p className='text-gray-600'>
-                      Founded as Satguru Real Estate in Raipur
-                    </p>
-                  </div>
-                </div>
-                <div className='hidden md:flex md:items-center md:justify-center md:w-2/12'>
-                  <div className='w-6 h-6 rounded-full bg-blue-500 border-4 border-white shadow-md'></div>
-                </div>
-                <div className='md:w-5/12'></div>
-              </motion.div> */}
-
-              {/* <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-                viewport={{ once: true }}
-                className='relative md:flex md:items-center md:justify-between'
-              >
-                <div className='md:w-5/12'></div>
-                <div className='hidden md:flex md:items-center md:justify-center md:w-2/12'>
-                  <div className='w-6 h-6 rounded-full bg-blue-500 border-4 border-white shadow-md'></div>
-                </div>
-                <div className='md:w-5/12 md:pl-8 mt-6 md:mt-0'>
-                  <div className='bg-blue-50 p-6 rounded-xl shadow-sm'>
-                    <h3 className='text-xl font-bold text-blue-600 mb-2'>
-                      2010
-                    </h3>
-                    <p className='text-gray-600'>
-                      Expanded to commercial property services
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
- */}
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 whileInView={{ opacity: 1, x: 0 }}
